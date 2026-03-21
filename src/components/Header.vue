@@ -49,16 +49,16 @@ function scrollToSection(e: Event, href: string) {
 </script>
 
 <template>
-  <header>
-    <nav>
+  <header class="header-bar">
+    <nav class="max-w-[1400px] mx-auto px-8 flex justify-between items-center w-full h-full max-md:px-4 max-md:h-auto max-md:min-h-[52px]">
       <a href="#" class="logo" @click.prevent="scrollToSection($event, '#')">
         <span class="logo-icon">
           <img src="/logo.png" alt="Logo" width="40" height="40" />
         </span>
-        <span class="logo-text">Purpeon <span class="logo-accent">Digital</span></span>
+        <span class="logo-text">Purpeon <span class="font-normal opacity-85 max-md:hidden">Digital</span></span>
       </a>
 
-      <button class="hamburger" @click="toggleMobileMenu" :class="{ open: mobileMenuOpen }" aria-label="Toggle menu">
+      <button class="hamburger hidden max-md:flex" @click="toggleMobileMenu" :class="{ open: mobileMenuOpen }" aria-label="Toggle menu">
         <span></span>
         <span></span>
         <span></span>
@@ -78,9 +78,10 @@ function scrollToSection(e: Event, href: string) {
     </nav>
   </header>
 </template>
+
 <style scoped>
-/* Header */
-header {
+/* Header bar */
+.header-bar {
   background: var(--header-bg);
   color: white;
   padding: 0;
@@ -91,7 +92,7 @@ header {
   width: 100%;
   height: 56px;
   z-index: 100;
-  box-shadow: 0 2px 20px var(--shadow-color);
+  box-shadow: 0 2px 20px var(--color-shadow);
   backdrop-filter: blur(12px);
   transition: all 0.3s ease;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -99,15 +100,10 @@ header {
   align-items: center;
 }
 
-nav {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+@media (max-width: 768px) {
+  .header-bar {
+    height: 52px;
+  }
 }
 
 /* Logo */
@@ -117,6 +113,12 @@ nav {
   gap: 0.75rem;
   text-decoration: none;
   color: white;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    gap: 0.5rem;
+  }
 }
 
 .logo-icon {
@@ -134,6 +136,15 @@ nav {
   transition: all 0.3s ease;
 }
 
+@media (max-width: 768px) {
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+}
+
 .logo:hover .logo-icon {
   transform: scale(1.05);
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.15) 100%);
@@ -145,12 +156,13 @@ nav {
   letter-spacing: -0.3px;
 }
 
-.logo-accent {
-  font-weight: 400;
-  opacity: 0.85;
+@media (max-width: 768px) {
+  .logo-text {
+    font-size: 1.1rem;
+  }
 }
 
-/* Navigation */
+/* Navigation right side */
 .nav-right {
   display: flex;
   align-items: center;
@@ -208,7 +220,6 @@ nav {
 
 /* Hamburger Menu */
 .hamburger {
-  display: none;
   flex-direction: column;
   gap: 4px;
   background: none;
@@ -239,89 +250,57 @@ nav {
   transform: rotate(-45deg) translateY(-9px);
 }
 
+/* Mobile nav drawer */
 @media (max-width: 768px) {
-    /* Update header height for mobile */
-    header {
-        height: 52px;
-    }
-    
-    nav {
-        padding: 0 1rem;
-        height: auto;
-        min-height: 52px;
-    }
-    
-    .logo {
-        gap: 0.5rem;
-    }
-    
-    .logo-icon {
-        width: 32px;
-        height: 32px;
-        font-size: 1rem;
-        border-radius: 8px;
-    }
-    
-    .logo-text {
-        font-size: 1.1rem;
-    }
-    
-    .logo-accent {
-        display: none;
-    }
-    
-    .hamburger {
-        display: flex;
-    }
-      .nav-right {
-        position: fixed;
-        top: 52px;
-        left: 0;
-        right: 0;
-        width: 100%;
-        max-height: 0;
-        background: var(--header-bg);
-        flex-direction: column;
-        padding: 0 1.5rem;
-        gap: 1.5rem;
-        overflow: hidden;
-        transition: max-height 0.3s ease, padding 0.3s ease;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    }
-    
-    .nav-right.mobile-open {
-        max-height: calc(100vh - 52px);
-        padding: 2rem 1.5rem;
-        overflow-x: hidden;
-        overflow-y: visible;
-    }
-    
-    .nav-links {
-        flex-direction: column;
-        gap: 0.25rem;
-        width: 100%;
-    }
-    
-    .nav-links li {
-        width: 100%;
-    }
-    
-    .nav-links a {
-        display: block;
-        width: 100%;
-        padding: 0.75rem 1rem;
-        font-size: 1rem;
-        text-align: left;
-    }
-    
-    .nav-controls {
-        padding-left: 0;
-        border-left: none;
-        gap: 0.5rem;
-        width: 100%;
-        padding-top: 1rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.15);
-        justify-content: flex-start;
-    }
+  .nav-right {
+    position: fixed;
+    top: 52px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-height: 0;
+    background: var(--header-bg);
+    flex-direction: column;
+    padding: 0 1.5rem;
+    gap: 1.5rem;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-right.mobile-open {
+    max-height: calc(100vh - 52px);
+    padding: 2rem 1.5rem;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 100%;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-links a {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    text-align: left;
+  }
+
+  .nav-controls {
+    padding-left: 0;
+    border-left: none;
+    gap: 0.5rem;
+    width: 100%;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    justify-content: flex-start;
+  }
 }
 </style>

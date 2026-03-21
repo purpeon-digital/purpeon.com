@@ -47,8 +47,8 @@ onMounted(() => {
 });
 
 const containerClasses = computed(() => [
-  'section-image',
-  `section-image--${props.alignment}`,
+  'section-image relative flex max-md:hidden',
+  props.alignment === 'start' ? 'justify-start' : props.alignment === 'end' ? 'justify-end' : 'justify-center',
   `section-image--${props.filterPreset}`,
   {
     'section-image--animate': props.animateOnScroll,
@@ -68,36 +68,14 @@ const containerClasses = computed(() => [
       :height="height"
       :style="{ maxWidth, borderRadius }"
       :fetchpriority="props.fetchpriority"
+      class="w-full h-auto object-cover"
     />
     <slot name="badge" />
   </div>
 </template>
 
 <style scoped>
-.section-image {
-  position: relative;
-  display: flex;
-}
-
-.section-image--start {
-  justify-content: flex-start;
-}
-
-.section-image--end {
-  justify-content: flex-end;
-}
-
-.section-image--center {
-  justify-content: center;
-}
-
-.section-image img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-/* Filter presets */
+/* Filter presets — complex multi-value filters + blend modes */
 .section-image--hero img {
   filter: brightness(0.9) contrast(1.1);
   mix-blend-mode: lighten;
@@ -133,7 +111,7 @@ const containerClasses = computed(() => [
   mix-blend-mode: normal;
 }
 
-/* Animation styles */
+/* Scroll-reveal animation */
 .section-image--animate {
   opacity: 0;
   transition: opacity 1.2s ease-out, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -150,12 +128,5 @@ const containerClasses = computed(() => [
 .section-image--animate.is-visible {
   opacity: 1;
   transform: translateX(0) scale(1);
-}
-
-/* Hidden on mobile */
-@media (max-width: 768px) {
-  .section-image {
-    display: none;
-  }
 }
 </style>

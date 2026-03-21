@@ -18,10 +18,10 @@ const toggleMap = () => {
 </script>
 
 <template>
-  <section id="contact" class="contact-section">
-    <div class="contact-wrapper">
-      <div class="contact-content">
-        <div class="contact-image">
+  <section id="contact" class="contact-section section-viewport streak-contact text-[var(--contact-text-color)] px-8 pt-24 pb-8 min-h-[calc(100vh-56px)]">
+    <div class="contact-wrapper flex flex-col w-full max-w-[1400px] items-center flex-1">
+      <div class="contact-content section-grid my-auto max-md:grid-cols-1">
+        <div class="contact-image relative flex justify-start max-md:hidden">
           <SectionImage
             v-if="!showMap"
             src="/power.jpg"
@@ -43,9 +43,9 @@ const toggleMap = () => {
           </div>
         </div>
         <div class="section-text">
-          <h2>{{ t('contact.title') }}</h2>
-          <p class="lead">{{ t('contact.lead') }}</p>
-          <p>{{ t('contact.description') }}</p>
+          <h2 class="contact-heading">{{ t('contact.title') }}</h2>
+          <p class="lead" style="color: var(--contact-text-color)">{{ t('contact.lead') }}</p>
+          <p style="color: var(--contact-text-color)">{{ t('contact.description') }}</p>
 
           <ContactMethods :locale="locale" @show-map="toggleMap" />
         </div>
@@ -60,118 +60,26 @@ const toggleMap = () => {
 </template>
 
 <style scoped>
-.contact-section p {
-  color: var(--contact-text-color);
-}
-
-.contact-wrapper {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 1400px;
-  align-items: center;
-  flex: 1;
-}
-
-.contact-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  max-width: 1400px;
-  width: 100%;
-  align-items: center;
-  margin: auto 0;
-}
-
 .contact-content :deep(img) {
   max-height: min(720px, 60vh);
   width: auto;
   object-fit: contain;
 }
 
-.contact-image {
-  position: relative;
-  display: flex;
-  justify-content: flex-start;
+/* Contact heading color + custom underline gradient */
+.contact-heading {
+  color: var(--contact-heading-color);
 }
 
-/* Contact Section */
-.contact-section {
-  background:
-    repeating-linear-gradient(150deg,
-      transparent 0px,
-      transparent 90px,
-      var(--contact-streak-1) 90px,
-      var(--contact-streak-2) 94px,
-      var(--contact-streak-3) 98px,
-      transparent 98px,
-      transparent 220px),
-    repeating-linear-gradient(150deg,
-      transparent 0px,
-      transparent 160px,
-      var(--contact-streak-4) 160px,
-      var(--contact-streak-5) 163px,
-      transparent 163px,
-      transparent 300px),
-    linear-gradient(-30deg,
-      var(--contact-grad-1) 0%,
-      var(--contact-grad-2) 40%,
-      var(--contact-grad-3) 70%,
-      var(--contact-grad-4) 100%);
-  color: var(--contact-text-color);
-  padding: 6rem 2rem 2rem 2rem;
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  max-width: none;
-  min-height: calc(100vh - 56px);
-  height: auto;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  transition: background 0.5s ease, color 0.3s ease;
+.contact-heading::after {
+  background: linear-gradient(90deg, #ec4899 0%, #f472b6 100%);
 }
 
-/* Light theme section background */
-:global([data-theme="light"]) .contact-section {
-  background:
-    repeating-linear-gradient(
-      150deg,
-      transparent 0px,
-      transparent 90px,
-      rgba(192, 132, 250, 0.08) 90px,
-      rgba(196, 139, 253, 0.1) 94px,
-      rgba(199, 146, 255, 0.08) 98px,
-      transparent 98px,
-      transparent 220px
-    ),
-    repeating-linear-gradient(
-      150deg,
-      transparent 0px,
-      transparent 160px,
-      rgba(168, 85, 247, 0.06) 160px,
-      rgba(168, 85, 247, 0.08) 163px,
-      transparent 163px,
-      transparent 300px
-    ),
-    linear-gradient(
-      -30deg,
-      #f3e5ff 0%,
-      #ede9fe 40%,
-      #f5f3ff 70%,
-      #faf5ff 100%
-    );
-  color: #2d2d2d;
+:global([data-theme="light"]) .contact-heading {
+  color: var(--color-accent-primary);
 }
 
-:global([data-theme="light"]) .section-text h2 {
-  color: #6B46C1;
-}
-
+/* Map container */
 .map-container {
   width: 100%;
   max-width: 600px;
@@ -181,16 +89,6 @@ const toggleMap = () => {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
 }
 
 .map-container:hover {
@@ -208,14 +106,7 @@ const toggleMap = () => {
   filter: brightness(1.05);
 }
 
-.section-text h2 {
-  color: var(--contact-heading-color);
-}
-
-.section-text h2::after {
-  background: linear-gradient(90deg, #ec4899 0%, #f472b6 100%);
-}
-
+/* Footer */
 .contact-footer {
   width: 100%;
   display: flex;
@@ -252,11 +143,11 @@ const toggleMap = () => {
   color: rgba(255, 255, 255, 0.9);
 }
 
-[data-theme="light"] .footer-text {
+:global([data-theme="light"]) .footer-text {
   color: rgba(0, 0, 0);
 }
 
-[data-theme="light"] .footer-divider {
+:global([data-theme="light"]) .footer-divider {
   background: linear-gradient(90deg,
       transparent 0%,
       rgba(45, 45, 45, 0.15) 20%,
@@ -265,7 +156,7 @@ const toggleMap = () => {
       transparent 100%);
 }
 
-/* Short viewport height */
+/* Short viewport height adjustments */
 @media (max-height: 800px) {
   .contact-section {
     padding: 4rem 2rem 2rem 2rem;
@@ -294,23 +185,18 @@ const toggleMap = () => {
   }
 }
 
-@media (max-width: 768px) {
-  .contact-section {
-    height: auto;
-    min-height: auto;
-    scroll-snap-align: none;
-    scroll-snap-stop: normal;
-    padding: 3rem 1.5rem;
+@media (max-width: 480px) {
+  .contact-wrapper {
+    gap: 1.5rem;
   }
 
-  .contact-content {
-    grid-template-columns: 1fr;
-    gap: 3rem;
+  .contact-footer {
+    gap: 1rem;
+    padding-top: 1.5rem;
   }
 
-  .contact-image {
-    display: none;
+  .footer-text {
+    font-size: 0.85rem;
   }
-
 }
 </style>

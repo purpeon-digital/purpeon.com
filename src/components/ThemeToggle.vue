@@ -8,7 +8,7 @@ const theme = ref<Theme>('uninitialized');
 onMounted(() => {
     const html = document.documentElement;
     const domTheme = (html.getAttribute('data-theme') || 'light') as 'light' | 'dark';
-    
+
     // Small delay to ensure smooth animation from neutral state
     requestAnimationFrame(() => {
         theme.value = domTheme;
@@ -36,15 +36,15 @@ function toggleTheme() {
 </script>
 
 <template>
-    <button 
-        class="theme-toggle" 
-        :class="{ 
+    <button
+        class="theme-toggle border-none bg-none cursor-pointer text-white/90 leading-none"
+        :class="{
             'theme-toggle--toggled': theme === 'dark',
             'theme-toggle--uninitialized': theme === 'uninitialized'
-        }" 
+        }"
         type="button"
-        title="Toggle theme" 
-        aria-label="Toggle theme" 
+        title="Toggle theme"
+        aria-label="Toggle theme"
         @click="toggleTheme"
     >
         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="1.5rem" height="1.5rem" fill="currentColor"
@@ -70,13 +70,9 @@ function toggleTheme() {
 </template>
 
 <style scoped>
+/* SVG morphing animation — cannot be expressed as Tailwind utilities */
 .theme-toggle {
     --theme-toggle__classic--duration: 500ms;
-    border: none;
-    background: none;
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.9);
-    line-height: 0;
 }
 
 .theme-toggle__classic path {

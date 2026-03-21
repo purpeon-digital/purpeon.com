@@ -77,7 +77,7 @@ describe('SectionImage', () => {
         }
       });
 
-      expect(wrapper.find('.section-image').classes()).toContain('section-image--start');
+      expect(wrapper.find('.section-image').classes()).toContain('justify-start');
     });
 
     it('applies end alignment class', () => {
@@ -89,7 +89,7 @@ describe('SectionImage', () => {
         }
       });
 
-      expect(wrapper.find('.section-image').classes()).toContain('section-image--end');
+      expect(wrapper.find('.section-image').classes()).toContain('justify-end');
     });
 
     it('applies center alignment class', () => {
@@ -101,7 +101,7 @@ describe('SectionImage', () => {
         }
       });
 
-      expect(wrapper.find('.section-image').classes()).toContain('section-image--center');
+      expect(wrapper.find('.section-image').classes()).toContain('justify-center');
     });
   });
 

@@ -25,13 +25,13 @@ const features = computed(() => {
 </script>
 
 <template>
-  <section class="hero">
-    <div class="hero-content">
-      <div class="hero-text">
-        <h1>{{ t('hero.title') }}</h1>
-        <p>{{ t('hero.subtitle') }}</p>
-        <p class="hero-tagline">{{ t('hero.tagline') }}</p>
-        <div class="hero-buttons">
+  <section class="hero section-viewport streak-hero text-[var(--hero-text-color)] pt-28 px-8 pb-8 max-md:pt-20 max-md:px-6 max-sm:pt-[4.5rem] max-sm:px-4 max-sm:pb-8">
+    <div class="hero-content section-grid gap-12 mt-auto mb-auto max-lg:gap-8 max-md:grid-cols-1 max-md:gap-8 max-sm:grid-cols-1 max-sm:gap-6">
+      <div class="hero-text max-md:text-center">
+        <h1 class="hero-heading text-[clamp(2.5rem,6vw,4rem)] mb-6 leading-[1.1] font-bold text-[var(--hero-text-color)]">{{ t('hero.title') }}</h1>
+        <p class="text-[clamp(1rem,2vw,1.2rem)] leading-relaxed mb-4 text-[var(--hero-text-color)]" :style="{ opacity: 'var(--hero-text-opacity)' }">{{ t('hero.subtitle') }}</p>
+        <p class="hero-tagline text-[clamp(1.1rem,2vw,1.3rem)] mb-8 text-[var(--hero-text-color)]" :style="{ opacity: 'var(--hero-text-opacity)' }">{{ t('hero.tagline') }}</p>
+        <div class="hero-buttons flex gap-4 flex-wrap max-sm:flex-col max-sm:mb-12">
           <SectionButton variant="primary" href="#services">
             {{ t('hero.cta.services') }}
           </SectionButton>
@@ -40,7 +40,7 @@ const features = computed(() => {
           </SectionButton>
         </div>
       </div>
-      <div class="hero-image">
+      <div class="hero-image flex items-center" style="max-height: min(600px, 50vh)">
         <SectionImage
           src="/hero-render.jpg"
           alt="Photo by Solen Feyissa on Unsplash"
@@ -61,53 +61,7 @@ const features = computed(() => {
 </template>
 
 <style scoped>
-/* Hero Section */
-.hero {
-  background:
-    repeating-linear-gradient(
-      120deg,
-      transparent 0px,
-      transparent 80px,
-      var(--hero-streak-1) 80px,
-      var(--hero-streak-2) 84px,
-      var(--hero-streak-3) 88px,
-      transparent 88px,
-      transparent 200px
-    ),
-    repeating-linear-gradient(
-      120deg,
-      transparent 0px,
-      transparent 140px,
-      var(--hero-streak-4) 140px,
-      var(--hero-streak-5) 143px,
-      transparent 143px,
-      transparent 280px
-    ),
-    linear-gradient(
-      135deg,
-      var(--hero-grad-1) 0%,
-      var(--hero-grad-2) 35%,
-      var(--hero-grad-3) 60%,
-      var(--hero-grad-4) 100%
-    );
-  color: var(--hero-text-color);
-  padding: 7rem 2rem 2rem;
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  max-width: none;
-  min-height: 100vh;
-  height: auto;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  transition: background 0.5s ease, color 0.3s ease;
-}
-
+/* Pulse pseudo-element animation */
 .hero::before {
   content: '';
   position: absolute;
@@ -120,91 +74,9 @@ const features = computed(() => {
   pointer-events: none;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(10%, 10%) scale(1.1); }
-}
-
-/* Light mode hero */
-:global([data-theme="light"]) .hero {
-  background:
-    repeating-linear-gradient(
-      120deg,
-      transparent 0px,
-      transparent 80px,
-      rgba(192, 132, 250, 0.1) 80px,
-      rgba(196, 139, 253, 0.12) 84px,
-      rgba(199, 146, 255, 0.1) 88px,
-      transparent 88px,
-      transparent 200px
-    ),
-    repeating-linear-gradient(
-      120deg,
-      transparent 0px,
-      transparent 140px,
-      rgba(168, 85, 247, 0.08) 140px,
-      rgba(168, 85, 247, 0.1) 143px,
-      transparent 143px,
-      transparent 280px
-    ),
-    linear-gradient(135deg, #f3e5ff 0%, #e8d5ff 100%);
-  color: #000000;
-}
-
-:global([data-theme="light"]) .hero-text h1,
-:global([data-theme="light"]) .hero-text p {
-  color: #000000;
-}
-
-.hero-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  max-width: 1400px;
-  width: 100%;
-  align-items: center;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
-.hero-text {
-  text-align: left;
-}
-
-.hero-text h1 {
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  margin-bottom: 1.5rem;
-  line-height: 1.1;
-  font-weight: 700;
-  color: var(--hero-text-color);
+/* Text shadow — dark mode only for glow effect */
+:global([data-theme="dark"]) .hero-heading {
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-}
-
-.hero-text p {
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  line-height: 1.6;
-  margin-bottom: 1rem;
-  opacity: var(--hero-text-opacity);
-  color: var(--hero-text-color);
-}
-
-.hero-tagline {
-  font-size: clamp(1.1rem, 2vw, 1.3rem);
-  margin-bottom: 2rem !important;
-  opacity: var(--hero-text-opacity);
-  color: var(--hero-text-color);
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.hero-image {
-  max-height: min(600px, 50vh);
-  display: flex;
-  align-items: center;
 }
 
 .hero-image :deep(img) {
@@ -213,82 +85,24 @@ const features = computed(() => {
   object-fit: contain;
 }
 
-/* Short viewport height */
+/* Short viewport height adjustments */
 @media (max-height: 800px) {
   .hero {
-    padding: 4rem 2rem 2rem;
+    padding-top: 4rem;
   }
 
   .hero-content {
     gap: 2rem;
-  }
-
-  .hero-text h1 {
-    margin-bottom: 1rem;
-  }
-
-  .hero-text p {
-    margin-bottom: 0.75rem;
-  }
-
-  .hero-tagline {
-    margin-bottom: 1.5rem !important;
   }
 }
 
 @media (max-height: 650px) {
   .hero {
-    padding: 3rem 2rem 1.5rem;
+    padding-top: 3rem;
   }
 
   .hero-content {
     gap: 1.5rem;
-  }
-}
-
-/* Tablet and small desktop */
-@media (max-width: 1200px) {
-  .hero-content {
-    gap: 2rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .hero-content {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-}
-
-/* Tablet and mobile */
-@media (max-width: 768px) {
-  .hero {
-    height: auto;
-    min-height: auto;
-    padding: 5rem 1.5rem 3rem;
-    scroll-snap-align: none;
-    scroll-snap-stop: normal;
-  }
-
-  .hero-content {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .hero-text {
-    text-align: center;
-  }
-}
-
-/* Small mobile */
-@media (max-width: 480px) {
-  .hero {
-    padding: 4.5rem 1rem 2rem;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-    margin-bottom: 3rem;
   }
 }
 </style>

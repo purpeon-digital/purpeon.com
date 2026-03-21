@@ -24,14 +24,14 @@ const values = computed(() => {
 </script>
 
 <template>
-  <section id="about" class="about-section">
-    <div class="about-content">
+  <section id="about" class="about-section section-viewport streak-about text-[var(--about-text-color)] px-8 py-24">
+    <div class="about-content section-grid max-md:grid-cols-1">
       <div class="section-text">
-        <h2>{{ t('about.title') }}</h2>
-        <p class="lead">{{ t('about.lead') }}</p>
-        <p>{{ t('about.description1') }}</p>
-        <p>{{ t('about.description2') }}</p>
-        <p>{{ t('about.description3') }}</p>
+        <h2 class="about-heading">{{ t('about.title') }}</h2>
+        <p class="lead" style="color: var(--about-text-color)">{{ t('about.lead') }}</p>
+        <p style="color: var(--about-text-color)">{{ t('about.description1') }}</p>
+        <p style="color: var(--about-text-color)">{{ t('about.description2') }}</p>
+        <p style="color: var(--about-text-color)">{{ t('about.description3') }}</p>
         <Features :features="values" :forceTwoLines="true" />
       </div>
       <SectionImage
@@ -51,111 +51,26 @@ const values = computed(() => {
 </template>
 
 <style scoped>
-/* About Section */
-.about-section {
-  background:
-    repeating-linear-gradient(-45deg,
-      transparent 0px,
-      transparent 100px,
-      var(--about-streak-1) 100px,
-      var(--about-streak-2) 104px,
-      var(--about-streak-3) 108px,
-      transparent 108px,
-      transparent 250px),
-    repeating-linear-gradient(-45deg,
-      transparent 0px,
-      transparent 180px,
-      var(--about-streak-4) 180px,
-      var(--about-streak-5) 183px,
-      transparent 183px,
-      transparent 350px),
-    linear-gradient(160deg,
-      var(--about-grad-1) 0%,
-      var(--about-grad-2) 35%,
-      var(--about-grad-3) 65%,
-      var(--about-grad-4) 100%);
-  color: var(--about-text-color);
-  padding: 6rem 2rem;
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  max-width: none;
-  min-height: 100vh;
-  height: auto;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  transition: background 0.5s ease, color 0.3s ease;
-}
-
-/* Light theme section background */
-:global([data-theme="light"]) .about-section {
-  background:
-    repeating-linear-gradient(
-      -45deg,
-      transparent 0px,
-      transparent 100px,
-      rgba(192, 132, 250, 0.08) 100px,
-      rgba(196, 139, 253, 0.1) 104px,
-      rgba(199, 146, 255, 0.08) 108px,
-      transparent 108px,
-      transparent 250px
-    ),
-    repeating-linear-gradient(
-      -45deg,
-      transparent 0px,
-      transparent 180px,
-      rgba(168, 85, 247, 0.06) 180px,
-      rgba(168, 85, 247, 0.08) 183px,
-      transparent 183px,
-      transparent 350px
-    ),
-    linear-gradient(
-      160deg,
-      #f5f3ff 0%,
-      #ede9fe 35%,
-      #faf5ff 65%,
-      #f3e5ff 100%
-    );
-  color: #2d2d2d;
-}
-
-.about-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  max-width: 1400px;
-  width: 100%;
-  align-items: center;
-}
-
 .about-content :deep(img) {
   max-height: min(640px, 60vh);
   width: auto;
   object-fit: contain;
 }
 
-.section-text h2 {
+/* About heading color + custom underline gradient */
+.about-heading {
   color: var(--about-heading-color);
 }
 
-.about-section p {
-  color: var(--about-text-color);
-}
-
-.section-text h2::after {
+.about-heading::after {
   background: linear-gradient(90deg, #818cf8 0%, #a5b4fc 100%);
 }
 
-:global([data-theme="light"]) .section-text h2 {
-  color: #6B46C1;
+:global([data-theme="light"]) .about-heading {
+  color: var(--color-accent-primary);
 }
 
-/* Short viewport height */
+/* Short viewport height adjustments */
 @media (max-height: 800px) {
   .about-section {
     padding: 4rem 2rem;
@@ -173,21 +88,6 @@ const values = computed(() => {
 
   .about-content {
     gap: 1.5rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .about-section {
-    height: auto;
-    min-height: auto;
-    scroll-snap-align: none;
-    scroll-snap-stop: normal;
-    padding: 3rem 1.5rem;
-  }
-
-  .about-content {
-    grid-template-columns: 1fr;
-    gap: 3rem;
   }
 }
 </style>

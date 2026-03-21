@@ -13,58 +13,25 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="features" :class="forceTwoLines ? 'features-force-two-lines' : ''">
+  <div
+    class="features grid gap-3 w-full max-w-[1400px] mt-auto md:gap-5"
+    :class="forceTwoLines
+      ? 'features-force-two-lines grid-cols-1 md:grid-cols-2'
+      : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:gap-6'"
+  >
     <div v-for="feature in props.features" :key="feature.title" class="feature-card">
-      <div class="feature-header">
+      <div class="feature-header flex items-center gap-4 mb-4 max-sm:gap-2.5 max-sm:mb-1.5">
         <span class="feature-icon-wrapper">
           <iconify-icon :icon="feature.icon" style="width: 28px; height: 28px; font-size: 28px;"></iconify-icon>
         </span>
-        <h2>{{ feature.title }}</h2>
+        <h2 class="feature-title">{{ feature.title }}</h2>
       </div>
-      <p>{{ feature.description }}</p>
+      <p class="feature-desc">{{ feature.description }}</p>
     </div>
   </div>
-  
 </template>
 
 <style scoped>
-.features {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  max-width: 1400px;
-  width: 100%;
-  margin-top: auto;
-}
-
-.features-force-two-lines {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-/* Tablet: 2x2 layout */
-@media (max-width: 1200px) {
-  .features {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-  }
-}
-
-/* Mobile: 1x4 layout */
-@media (max-width: 768px) {
-  .features {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-}
-
-/* Small mobile: compact 1x4 layout */
-@media (max-width: 480px) {
-  .features {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
-}
-
 .feature-card {
   background: var(--feature-bg);
   backdrop-filter: blur(10px);
@@ -79,13 +46,6 @@ const props = defineProps<{
   transform: translateY(-5px);
   border-color: var(--feature-border);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-}
-
-.feature-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
 }
 
 .feature-icon-wrapper {
@@ -107,7 +67,7 @@ const props = defineProps<{
   width: 28px;
   height: 28px;
   font-size: 28px;
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--feature-icon-color);
   transition: transform 0.3s ease;
 }
 
@@ -122,7 +82,7 @@ const props = defineProps<{
   transform: scale(1.1);
 }
 
-.feature-card h2 {
+.feature-title {
   font-size: 1.2rem;
   margin: 0;
   padding-bottom: 0.5rem;
@@ -132,7 +92,7 @@ const props = defineProps<{
   position: relative;
 }
 
-.feature-card h2::after {
+.feature-title::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -146,11 +106,11 @@ const props = defineProps<{
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.feature-card:hover h2::after {
+.feature-card:hover .feature-title::after {
   transform: scaleX(1);
 }
 
-.feature-card p {
+.feature-desc {
   font-size: 0.95rem;
   line-height: 1.6;
   opacity: var(--feature-text-opacity);
@@ -180,12 +140,12 @@ const props = defineProps<{
 }
 
 :global([data-theme="light"]) .feature-icon-wrapper iconify-icon {
-  color: #6B46C1;
+  color: var(--color-accent-primary);
 }
 
-:global([data-theme="light"]) .feature-card h2,
-:global([data-theme="light"]) .feature-card p {
-  color: #2d2d2d;
+:global([data-theme="light"]) .feature-title,
+:global([data-theme="light"]) .feature-desc {
+  color: var(--color-text-primary);
 }
 
 /* Small mobile: compact cards */
@@ -193,11 +153,6 @@ const props = defineProps<{
   .feature-card {
     padding: 0.85rem;
     border-radius: 12px;
-  }
-
-  .feature-header {
-    gap: 0.6rem;
-    margin-bottom: 0.35rem;
   }
 
   .feature-icon-wrapper {
@@ -213,13 +168,13 @@ const props = defineProps<{
     font-size: 22px;
   }
 
-  .feature-card h2 {
+  .feature-title {
     font-size: 1rem;
     line-height: 1.2;
     padding-bottom: 0.35rem;
   }
 
-  .feature-card p {
+  .feature-desc {
     font-size: 0.85rem;
     line-height: 1.4;
     margin: 0.25rem 0 0 0;

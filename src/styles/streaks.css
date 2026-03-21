@@ -1,0 +1,152 @@
+/* ============================================================
+   STREAK GRADIENT BACKGROUNDS
+   Per-section decorative backgrounds with light/dark theme variants.
+   Each section has unique angles and CSS variable-driven colors.
+   ============================================================ */
+
+/* Hero — 120deg streaks */
+.streak-hero {
+  background:
+    repeating-linear-gradient(
+      120deg,
+      transparent 0px, transparent 80px,
+      var(--hero-streak-1) 80px, var(--hero-streak-2) 84px,
+      var(--hero-streak-3) 88px, transparent 88px, transparent 200px
+    ),
+    repeating-linear-gradient(
+      120deg,
+      transparent 0px, transparent 140px,
+      var(--hero-streak-4) 140px, var(--hero-streak-5) 143px,
+      transparent 143px, transparent 280px
+    ),
+    linear-gradient(
+      135deg,
+      var(--hero-grad-1) 0%, var(--hero-grad-2) 35%,
+      var(--hero-grad-3) 60%, var(--hero-grad-4) 100%
+    );
+}
+
+[data-theme="light"] .streak-hero {
+  background:
+    repeating-linear-gradient(
+      120deg,
+      transparent 0px, transparent 80px,
+      rgba(192, 132, 250, 0.1) 80px, rgba(196, 139, 253, 0.12) 84px,
+      rgba(199, 146, 255, 0.1) 88px, transparent 88px, transparent 200px
+    ),
+    repeating-linear-gradient(
+      120deg,
+      transparent 0px, transparent 140px,
+      rgba(168, 85, 247, 0.08) 140px, rgba(168, 85, 247, 0.1) 143px,
+      transparent 143px, transparent 280px
+    ),
+    linear-gradient(135deg, #f3e5ff 0%, #e8d5ff 100%);
+}
+
+/* Services — 30deg streaks */
+.streak-services {
+  background:
+    repeating-linear-gradient(
+      30deg,
+      transparent 0px, transparent 80px,
+      var(--services-streak-1) 80px, var(--services-streak-2) 84px,
+      var(--services-streak-3) 88px, transparent 88px, transparent 200px
+    ),
+    repeating-linear-gradient(
+      30deg,
+      transparent 0px, transparent 140px,
+      var(--services-streak-4) 140px, var(--services-streak-5) 143px,
+      transparent 143px, transparent 280px
+    ),
+    linear-gradient(
+      135deg,
+      var(--services-grad-1) 0%, var(--services-grad-2) 35%,
+      var(--services-grad-3) 60%, var(--services-grad-4) 100%
+    );
+}
+
+/* About — -45deg streaks */
+.streak-about {
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0px, transparent 100px,
+      var(--about-streak-1) 100px, var(--about-streak-2) 104px,
+      var(--about-streak-3) 108px, transparent 108px, transparent 250px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0px, transparent 180px,
+      var(--about-streak-4) 180px, var(--about-streak-5) 183px,
+      transparent 183px, transparent 350px
+    ),
+    linear-gradient(
+      160deg,
+      var(--about-grad-1) 0%, var(--about-grad-2) 35%,
+      var(--about-grad-3) 65%, var(--about-grad-4) 100%
+    );
+}
+
+[data-theme="light"] .streak-about {
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0px, transparent 100px,
+      rgba(192, 132, 250, 0.08) 100px, rgba(196, 139, 253, 0.1) 104px,
+      rgba(199, 146, 255, 0.08) 108px, transparent 108px, transparent 250px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0px, transparent 180px,
+      rgba(168, 85, 247, 0.06) 180px, rgba(168, 85, 247, 0.08) 183px,
+      transparent 183px, transparent 350px
+    ),
+    linear-gradient(
+      160deg,
+      #f5f3ff 0%, #ede9fe 35%,
+      #faf5ff 65%, #f3e5ff 100%
+    );
+}
+
+/* Contact — 150deg streaks */
+.streak-contact {
+  background:
+    repeating-linear-gradient(
+      150deg,
+      transparent 0px, transparent 90px,
+      var(--contact-streak-1) 90px, var(--contact-streak-2) 94px,
+      var(--contact-streak-3) 98px, transparent 98px, transparent 220px
+    ),
+    repeating-linear-gradient(
+      150deg,
+      transparent 0px, transparent 160px,
+      var(--contact-streak-4) 160px, var(--contact-streak-5) 163px,
+      transparent 163px, transparent 300px
+    ),
+    linear-gradient(
+      -30deg,
+      var(--contact-grad-1) 0%, var(--contact-grad-2) 40%,
+      var(--contact-grad-3) 70%, var(--contact-grad-4) 100%
+    );
+}
+
+[data-theme="light"] .streak-contact {
+  background:
+    repeating-linear-gradient(
+      150deg,
+      transparent 0px, transparent 90px,
+      rgba(192, 132, 250, 0.08) 90px, rgba(196, 139, 253, 0.1) 94px,
+      rgba(199, 146, 255, 0.08) 98px, transparent 98px, transparent 220px
+    ),
+    repeating-linear-gradient(
+      150deg,
+      transparent 0px, transparent 160px,
+      rgba(168, 85, 247, 0.06) 160px, rgba(168, 85, 247, 0.08) 163px,
+      transparent 163px, transparent 300px
+    ),
+    linear-gradient(
+      -30deg,
+      #f3e5ff 0%, #ede9fe 40%,
+      #f5f3ff 70%, #faf5ff 100%
+    );
+}

@@ -1,0 +1,398 @@
+@import "tailwindcss";
+@import "./streaks.css";
+@import "./animations.css";
+
+/* ============================================================
+   TAILWIND DARK/LIGHT MODE VARIANTS
+   Maps to existing data-theme attribute system
+   ============================================================ */
+
+@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
+/* ============================================================
+   TAILWIND THEME TOKENS
+   These generate utility classes (e.g. bg-primary, text-accent-primary)
+   ============================================================ */
+
+@theme {
+  /* Core palette */
+  --color-bg-primary: #f8f7fc;
+  --color-bg-secondary: #ffffff;
+  --color-text-primary: #2d2d2d;
+  --color-text-secondary: #4a5568;
+  --color-accent-primary: #6B46C1;
+  --color-accent-secondary: #7C3AED;
+  --color-accent-light: #A78BFA;
+  --color-section-bg: #ffffff;
+
+  /* Shadow tokens */
+  --color-shadow: rgba(107, 70, 193, 0.1);
+  --color-shadow-hover: rgba(107, 70, 193, 0.2);
+
+  /* Button colors */
+  --color-btn-primary: #7C3AED;
+  --color-btn-primary-hover: #6B2DD6;
+  --color-btn-primary-light: #6B46C1;
+  --color-btn-primary-light-hover: #553C9A;
+
+  /* Contact icon */
+  --color-contact-icon: #C7719E;
+
+  /* Breakpoints */
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1200px;
+  --breakpoint-xl: 1400px;
+}
+
+/* ============================================================
+   SECTION-SPECIFIC CSS CUSTOM PROPERTIES
+   These vary per theme and are consumed in complex gradient
+   declarations that Tailwind cannot express as utilities.
+   ============================================================ */
+
+:root {
+  --header-bg: linear-gradient(135deg, #6B46C1 0%, #553C9A 100%);
+  --hero-bg: linear-gradient(135deg, #7C3AED 0%, #6B46C1 50%, #553C9A 100%);
+
+  /* Hero */
+  --hero-line-1: rgba(124, 58, 237, 0.15);
+  --hero-line-2: rgba(167, 139, 250, 0.1);
+  --hero-grad-1: #4a1d96;
+  --hero-grad-2: #5a26a8;
+  --hero-grad-3: #3d1770;
+  --hero-grad-4: #2d0d52;
+  --hero-streak-1: rgba(255, 80, 200, 0.25);
+  --hero-streak-2: rgba(255, 100, 220, 0.3);
+  --hero-streak-3: rgba(255, 60, 180, 0.25);
+  --hero-streak-4: rgba(255, 100, 150, 0.15);
+  --hero-streak-5: rgba(255, 120, 170, 0.2);
+  --hero-text-color: #1e0a3c;
+  --hero-text-opacity: 1;
+
+  /* Secondary button (light mode: dark text + purple border) */
+  --btn-secondary-color: var(--color-text-primary);
+  --btn-secondary-border: rgba(107, 70, 193, 0.3);
+  --btn-secondary-hover-bg: rgba(107, 70, 193, 0.15);
+  --btn-secondary-hover-border: rgba(107, 70, 193, 0.5);
+
+  /* Feature icon color */
+  --feature-icon-color: var(--color-accent-primary);
+
+  /* Features */
+  --feature-bg: rgba(107, 70, 193, 0.12);
+  --feature-border: rgba(107, 70, 193, 0.25);
+  --feature-hover-bg: rgba(107, 70, 193, 0.2);
+  --feature-text-color: #1e0a3c;
+  --feature-text-opacity: 0.9;
+
+  /* Hero badge */
+  --hero-badge-bg: rgba(0, 0, 0, 0.7);
+  --hero-badge-border: rgba(255, 255, 255, 0.15);
+
+  /* Services */
+  --services-grad-1: #f3e8ff;
+  --services-grad-2: #e9d5ff;
+  --services-grad-3: #ddd6fe;
+  --services-grad-4: #e9d5ff;
+  --services-streak-1: rgba(124, 58, 237, 0.35);
+  --services-streak-2: rgba(139, 92, 246, 0.4);
+  --services-streak-3: rgba(107, 70, 193, 0.35);
+  --services-streak-4: rgba(147, 112, 219, 0.25);
+  --services-streak-5: rgba(159, 122, 234, 0.3);
+  --services-text-color: #2d2d2d;
+  --services-heading-color: #4a1d96;
+  --services-item-bg: rgba(107, 70, 193, 0.05);
+  --services-item-border: rgba(107, 70, 193, 0.15);
+  --services-badge-bg: rgba(255, 255, 255, 0.9);
+  --services-badge-border: rgba(107, 70, 193, 0.2);
+
+  /* About */
+  --about-grad-1: #1e1b4b;
+  --about-grad-2: #312e81;
+  --about-grad-3: #3730a3;
+  --about-grad-4: #1e1b4b;
+  --about-streak-1: rgba(99, 102, 241, 0.3);
+  --about-streak-2: rgba(129, 140, 248, 0.35);
+  --about-streak-3: rgba(79, 70, 229, 0.3);
+  --about-streak-4: rgba(139, 92, 246, 0.2);
+  --about-streak-5: rgba(167, 139, 250, 0.25);
+  --about-text-color: #2d2d2d;
+  --about-heading-color: #4a1d96;
+  --about-card-bg: rgba(255, 255, 255, 0.08);
+  --about-card-border: rgba(255, 255, 255, 0.15);
+  --about-badge-bg: rgba(0, 0, 0, 0.6);
+  --about-badge-border: rgba(255, 255, 255, 0.2);
+  --about-stat-bg: rgba(255, 255, 255, 0.95);
+  --about-stat-color: #3730a3;
+
+  /* Contact */
+  --contact-grad-1: #581c87;
+  --contact-grad-2: #7c3aed;
+  --contact-grad-3: #8b5cf6;
+  --contact-grad-4: #6d28d9;
+  --contact-streak-1: rgba(236, 72, 153, 0.25);
+  --contact-streak-2: rgba(244, 114, 182, 0.3);
+  --contact-streak-3: rgba(219, 39, 119, 0.25);
+  --contact-streak-4: rgba(251, 146, 60, 0.15);
+  --contact-streak-5: rgba(251, 191, 36, 0.2);
+  --contact-text-color: #0a0a0a;
+  --contact-heading-color: #4a1d96;
+  --contact-card-bg: rgba(255, 255, 255, 0.1);
+  --contact-card-border: rgba(255, 255, 255, 0.2);
+  --contact-card-hover: rgba(255, 255, 255, 0.18);
+  --contact-badge-bg: rgba(236, 72, 153, 0.9);
+  --contact-badge-border: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] {
+  --bg-primary: #0f0f1e;
+  --bg-secondary: #1a1a2e;
+  --text-primary: #e5e5e5;
+  --text-secondary: #b0b0c0;
+  --accent-primary: #9D6FFF;
+  --accent-secondary: #B794F6;
+  --accent-light: #C3B0FF;
+  --header-bg: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
+  --hero-bg: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 50%, #0a0a15 100%);
+  --section-bg: #16162a;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-hover: rgba(0, 0, 0, 0.5);
+
+  /* Secondary button (dark mode: white text + white border) */
+  --btn-secondary-color: white;
+  --btn-secondary-border: rgba(255, 255, 255, 0.3);
+  --btn-secondary-hover-bg: rgba(255, 255, 255, 0.1);
+  --btn-secondary-hover-border: rgba(255, 255, 255, 0.5);
+
+  /* Feature icon color */
+  --feature-icon-color: rgba(255, 255, 255, 0.95);
+
+  /* Hero dark */
+  --hero-line-1: rgba(157, 111, 255, 0.12);
+  --hero-line-2: rgba(183, 148, 246, 0.08);
+  --hero-grad-1: #0a0015;
+  --hero-grad-2: #15001f;
+  --hero-grad-3: #1a0025;
+  --hero-grad-4: #0a0015;
+  --hero-streak-1: rgba(157, 111, 255, 0.18);
+  --hero-streak-2: rgba(183, 148, 246, 0.22);
+  --hero-streak-3: rgba(139, 92, 246, 0.18);
+  --hero-streak-4: rgba(167, 139, 250, 0.12);
+  --hero-streak-5: rgba(195, 176, 255, 0.15);
+  --hero-text-color: #ffffff;
+  --hero-text-opacity: 0.95;
+
+  /* Features dark */
+  --feature-bg: rgba(157, 111, 255, 0.08);
+  --feature-border: rgba(157, 111, 255, 0.15);
+  --feature-hover-bg: rgba(157, 111, 255, 0.12);
+  --feature-text-color: rgba(255, 255, 255, 0.9);
+  --feature-text-opacity: 0.85;
+
+  /* Hero badge dark */
+  --hero-badge-bg: rgba(10, 10, 20, 0.85);
+  --hero-badge-border: rgba(157, 111, 255, 0.2);
+
+  /* Services dark */
+  --services-grad-1: #1a0f2e;
+  --services-grad-2: #251540;
+  --services-grad-3: #2a1a45;
+  --services-grad-4: #1a0f2e;
+  --services-streak-1: rgba(157, 111, 255, 0.3);
+  --services-streak-2: rgba(183, 148, 246, 0.35);
+  --services-streak-3: rgba(167, 139, 250, 0.3);
+  --services-streak-4: rgba(195, 176, 255, 0.22);
+  --services-streak-5: rgba(177, 156, 217, 0.25);
+  --services-text-color: #e5e5e5;
+  --services-heading-color: #B794F6;
+  --services-item-bg: rgba(157, 111, 255, 0.08);
+  --services-item-border: rgba(157, 111, 255, 0.2);
+  --services-badge-bg: rgba(26, 15, 46, 0.9);
+  --services-badge-border: rgba(157, 111, 255, 0.3);
+
+  /* About dark */
+  --about-grad-1: #0a0a1a;
+  --about-grad-2: #0f0f2a;
+  --about-grad-3: #151535;
+  --about-grad-4: #0a0a1a;
+  --about-streak-1: rgba(99, 102, 241, 0.2);
+  --about-streak-2: rgba(129, 140, 248, 0.25);
+  --about-streak-3: rgba(79, 70, 229, 0.2);
+  --about-streak-4: rgba(139, 92, 246, 0.15);
+  --about-streak-5: rgba(167, 139, 250, 0.18);
+  --about-text-color: #e5e5e5;
+  --about-heading-color: #a5b4fc;
+  --about-card-bg: rgba(99, 102, 241, 0.08);
+  --about-card-border: rgba(99, 102, 241, 0.2);
+  --about-badge-bg: rgba(10, 10, 30, 0.85);
+  --about-badge-border: rgba(99, 102, 241, 0.3);
+  --about-stat-bg: rgba(99, 102, 241, 0.25);
+  --about-stat-color: #ffffff;
+
+  /* Contact dark */
+  --contact-grad-1: #1a0a20;
+  --contact-grad-2: #2d1040;
+  --contact-grad-3: #3d1555;
+  --contact-grad-4: #1a0a20;
+  --contact-streak-1: rgba(236, 72, 153, 0.18);
+  --contact-streak-2: rgba(244, 114, 182, 0.22);
+  --contact-streak-3: rgba(219, 39, 119, 0.18);
+  --contact-streak-4: rgba(251, 146, 60, 0.12);
+  --contact-streak-5: rgba(251, 191, 36, 0.15);
+  --contact-text-color: #e5e5e5;
+  --contact-heading-color: #fbcfe8;
+  --contact-card-bg: rgba(236, 72, 153, 0.08);
+  --contact-card-border: rgba(236, 72, 153, 0.2);
+  --contact-card-hover: rgba(236, 72, 153, 0.15);
+  --contact-badge-bg: rgba(236, 72, 153, 0.8);
+  --contact-badge-border: rgba(255, 255, 255, 0.2);
+}
+
+/* ============================================================
+   CUSTOM UTILITIES
+   Repeated patterns consolidated into reusable utilities
+   ============================================================ */
+
+/* Fullscreen viewport section — used by Hero, Services, About, Contact */
+@utility section-viewport {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  height: auto;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  transition: background 0.5s ease, color 0.3s ease;
+}
+
+/* Content grid inside sections */
+@utility section-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+  max-width: 1400px;
+  width: 100%;
+  align-items: center;
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 56px;
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (max-width: 768px) {
+    html {
+      scroll-snap-type: none;
+      scroll-padding-top: 52px;
+    }
+  }
+
+  body {
+    opacity: 1;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--color-text-primary);
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg-primary);
+    transition: background 0.3s ease, color 0.3s ease;
+    width: 100%;
+    height: 100%;
+  }
+
+  main {
+    flex: 1 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  h2 {
+    margin-bottom: 2rem;
+    color: var(--color-accent-primary);
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    position: relative;
+    padding-bottom: 1rem;
+  }
+
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-accent-secondary) 0%, var(--color-accent-light) 100%);
+    border-radius: 2px;
+  }
+
+  section p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    max-width: 800px;
+  }
+
+  section p strong {
+    color: var(--color-accent-primary);
+    font-weight: 600;
+  }
+
+  footer {
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem 1rem 1rem;
+    flex-shrink: 0;
+    width: 100%;
+    scroll-snap-align: start;
+  }
+
+  iconify-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+  }
+
+  /* Mobile section overrides */
+  @media (max-width: 768px) {
+    section {
+      width: 100%;
+      padding: 3rem 1.5rem;
+      height: auto;
+      min-height: auto;
+      scroll-snap-align: none;
+      scroll-snap-stop: normal;
+    }
+  }
+
+  @media (max-width: 480px) {
+    section {
+      padding: 2rem 1rem;
+    }
+  }
+}

@@ -107,7 +107,7 @@ const handleClick = (method: ContactMethodDisplay, event: MouseEvent) => {
 </script>
 
 <template>
-  <div class="contact-methods">
+  <div class="contact-methods flex flex-col gap-4 my-8">
     <a
       v-for="method in contactMethods"
       :key="method.label"
@@ -121,8 +121,8 @@ const handleClick = (method: ContactMethodDisplay, event: MouseEvent) => {
       }"
       @click="handleClick(method, $event)"
     >
-      <span class="contact-icon">
-        <iconify-icon :icon="method.icon" width="24" height="24" style="color: #C7719E"></iconify-icon>
+      <span class="text-[1.8rem] shrink-0">
+        <iconify-icon :icon="method.icon" width="24" height="24" class="text-contact-icon"></iconify-icon>
       </span>
       <div>
         <h3>{{ method.label }}</h3>
@@ -133,85 +133,64 @@ const handleClick = (method: ContactMethodDisplay, event: MouseEvent) => {
 </template>
 
 <style scoped>
-.contact-methods {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin: 2rem 0;
-}
-
 .contact-card {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    background: var(--contact-card-bg);
-    padding: 1.25rem 1.5rem;
-    border-radius: 12px;
-    border: 1px solid var(--contact-card-border);
-    transition: all 0.3s ease;
-    text-decoration: none;
-    color: inherit;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background: var(--contact-card-bg);
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--contact-card-border);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
 }
 
-.contact-card:not(.no-link):hover {
-    background: var(--contact-card-hover);
-    transform: translateX(8px);
-    border-color: rgba(244, 114, 182, 0.4);
-}
-
+.contact-card:not(.no-link):hover,
 .contact-card.clickable:hover {
-    background: var(--contact-card-hover);
-    transform: translateX(8px);
-    border-color: rgba(244, 114, 182, 0.4);
-    cursor: pointer;
+  background: var(--contact-card-hover);
+  transform: translateX(8px);
+  border-color: rgba(244, 114, 182, 0.4);
+  cursor: pointer;
 }
 
 .contact-card.no-link {
-    cursor: default;
-}
-
-.contact-icon {
-    font-size: 1.8rem;
-    flex-shrink: 0;
+  cursor: default;
 }
 
 .contact-card h3 {
-    font-size: 0.85rem;
-    margin-bottom: 0.2rem;
-    color: var(--contact-heading-color);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    opacity: 0.8;
+  font-size: 0.85rem;
+  margin-bottom: 0.2rem;
+  color: var(--contact-heading-color);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
 }
 
 .contact-card p {
-    font-size: 1.1rem;
-    margin: 0;
-    color: var(--contact-text-color);
-    font-weight: 500;
+  font-size: 1.1rem;
+  margin: 0;
+  color: var(--contact-text-color);
+  font-weight: 500;
 }
 
 /* Light mode */
 :global([data-theme="light"]) .contact-card {
-    background: rgba(107, 70, 193, 0.12);
-    border: 1px solid rgba(107, 70, 193, 0.25);
+  background: rgba(107, 70, 193, 0.12);
+  border: 1px solid rgba(107, 70, 193, 0.25);
 }
 
-:global([data-theme="light"]) .contact-card:not(.no-link):hover {
-    background: rgba(107, 70, 193, 0.2);
-    border-color: rgba(107, 70, 193, 0.4);
-}
-
+:global([data-theme="light"]) .contact-card:not(.no-link):hover,
 :global([data-theme="light"]) .contact-card.clickable:hover {
-    background: rgba(107, 70, 193, 0.2);
-    border-color: rgba(107, 70, 193, 0.4);
+  background: rgba(107, 70, 193, 0.2);
+  border-color: rgba(107, 70, 193, 0.4);
 }
 
 :global([data-theme="light"]) .contact-card h3 {
-    color: #6B46C1;
+  color: var(--color-accent-primary);
 }
 
 :global([data-theme="light"]) .contact-card p {
-    color: #2d2d2d;
+  color: var(--color-text-primary);
 }
 </style>
