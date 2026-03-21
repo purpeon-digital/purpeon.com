@@ -7,11 +7,22 @@ interface Props {
   locale: 'en' | 'no';
 }
 
-const { 
-  title = 'Purpeon Digital - IT Consulting',
-  description = 'Purpeon Digital - Professional IT consulting services for your business',
+const {
   locale = 'no'
 } = Astro.props;
+
+const titles = {
+  en: 'Purpeon Digital - IT Consulting',
+  no: 'Purpeon Digital - IT Konsulenter'
+};
+
+const descriptions = {
+  en: 'Purpeon Digital - Professional IT consulting services for your business',
+  no: 'Purpeon Digital - Profesjonelle IT-konsultasjonstjenester for din bedrift'
+};
+
+const title = titles[locale];
+const description = descriptions[locale];
 ---
 
 <!DOCTYPE html>
