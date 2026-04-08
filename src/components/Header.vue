@@ -53,7 +53,7 @@ function scrollToSection(e: Event, href: string) {
     <nav class="max-w-[1400px] mx-auto px-8 flex justify-between items-center w-full h-full max-md:px-4 max-md:h-auto max-md:min-h-[52px]">
       <a href="#" class="logo" @click.prevent="scrollToSection($event, '#')">
         <span class="logo-icon">
-          <img src="/logo.png" alt="Logo" width="40" height="40" />
+          <img src="/logo.svg" alt="Logo" class="h-full w-full" />
         </span>
         <span class="logo-text">Purpeon <span class="font-normal opacity-85 max-md:hidden">Digital</span></span>
       </a>
@@ -127,12 +127,6 @@ function scrollToSection(e: Event, href: string) {
   justify-content: center;
   width: 38px;
   height: 38px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%);
-  border-radius: 10px;
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
 }
 
@@ -140,14 +134,7 @@ function scrollToSection(e: Event, href: string) {
   .logo-icon {
     width: 32px;
     height: 32px;
-    font-size: 1rem;
-    border-radius: 8px;
   }
-}
-
-.logo:hover .logo-icon {
-  transform: scale(1.05);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.15) 100%);
 }
 
 .logo-text {

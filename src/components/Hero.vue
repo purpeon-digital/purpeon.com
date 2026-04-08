@@ -41,9 +41,10 @@ const features = computed(() => {
         </div>
       </div>
       <div class="hero-image flex items-center" style="max-height: min(600px, 50vh)">
+        <!-- <img src="/logo.svg" /> -->
         <SectionImage
-          src="/hero-render.jpg"
-          alt="Photo by Solen Feyissa on Unsplash"
+          src="/logo.svg"
+          alt="Logo"
           width="400"
           height="600"
           maxWidth="400px"
@@ -61,30 +62,6 @@ const features = computed(() => {
 </template>
 
 <style scoped>
-/* Pulse pseudo-element animation */
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
-  animation: pulse 15s ease-in-out infinite;
-  pointer-events: none;
-}
-
-/* Text shadow — dark mode only for glow effect */
-:global([data-theme="dark"]) .hero-heading {
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-}
-
-.hero-image :deep(img) {
-  max-height: min(600px, 50vh);
-  width: auto;
-  object-fit: contain;
-}
-
 /* Short viewport height adjustments */
 @media (max-height: 800px) {
   .hero {
