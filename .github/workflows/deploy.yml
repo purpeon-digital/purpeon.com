@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,10 +24,14 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          # Must use the baseline version of Bun to ensure compatibility with GitHub Actions' self-hosted runners. (I think it's brcause the CPU on the server is a bit old (or VM doesn't support newer instruction sets?))
+          bun-download-url: "https://github.com/oven-sh/bun/releases/latest/download/bun-linux-x64-baseline.zip"
 
       - name: Install dependencies
         run: bun install
+
+      - name: Run tests
+        run: bun run test:run
 
       - name: Build site
         run: bun run build
@@ -41,7 +45,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: build
     steps:
       - name: Deploy to GitHub Pages

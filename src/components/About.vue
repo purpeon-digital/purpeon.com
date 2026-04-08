@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useI18n, type Locale } from '@/composables/useI18n';
+import Features from './Features.vue';
+import SectionImage from './SectionImage.vue';
 
 interface Value {
   icon: string;
@@ -17,37 +19,75 @@ const { t, locale } = useI18n(props.locale);
 const values = computed(() => {
   // Track locale for reactivity
   const _ = locale.value;
-  return t('about.values');
+  return t('about.values') as Value[];
 });
 </script>
 
 <template>
-  <section id="about" class="about-section">
-    <div class="about-content">
-      <div class="about-text">
-        <h2>{{ t('about.title') }}</h2>
-        <p class="lead">{{ t('about.lead') }}</p>
-        <p>{{ t('about.description1') }}</p>
-        <p>{{ t('about.description2') }}</p>
-        <p>{{  t('about.description3') }}</p>
-        
-        <div class="values-grid">
-          <div 
-            v-for="value in values" 
-            :key="value.title" 
-            class="value-card"
-          >
-            <span class="value-icon">{{ value.icon }}</span>
-            <div>
-              <h3>{{ value.title }}</h3>
-              <p>{{ value.description }}</p>
-            </div>
-          </div>
-        </div>
+  <section id="about" class="about-section section-viewport streak-about text-[var(--about-text-color)] px-8 py-24">
+    <div class="about-content section-grid max-md:grid-cols-1">
+      <div class="section-text">
+        <h2 class="about-heading">{{ t('about.title') }}</h2>
+        <p class="lead" style="color: var(--about-text-color)">{{ t('about.lead') }}</p>
+        <p style="color: var(--about-text-color)">{{ t('about.description1') }}</p>
+        <p style="color: var(--about-text-color)">{{ t('about.description2') }}</p>
+        <p style="color: var(--about-text-color)">{{ t('about.description3') }}</p>
+        <Features :features="values" :forceTwoLines="true" />
       </div>
-      <div class="about-image">
-        <img src="/foxglove_photo.jpg" height="640px" width="480px" alt="Foxglove - Photo by https://unsplash.com/@anniespratt?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText Annie Spratt on https://unsplash.com/photos/a-field-full-of-purple-flowers-on-a-cloudy-day-OuUdVpx1JD8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText Unsplash" />
-      </div>
+      <SectionImage
+        src="/foxglove_photo.jpg"
+        alt="Foxglove - Photo by Annie Spratt on Unsplash"
+        width="480"
+        height="640"
+        maxWidth="480px"
+        borderRadius="16px"
+        alignment="end"
+        filterPreset="about"
+        animateOnScroll
+        animationDirection="right"
+      />
     </div>
   </section>
 </template>
+
+<style scoped>
+.about-content :deep(img) {
+  max-height: min(640px, 60vh);
+  width: auto;
+  object-fit: contain;
+}
+
+/* About heading color + custom underline gradient */
+.about-heading {
+  color: var(--about-heading-color);
+}
+
+.about-heading::after {
+  background: linear-gradient(90deg, #818cf8 0%, #a5b4fc 100%);
+}
+
+:global([data-theme="light"]) .about-heading {
+  color: var(--color-accent-primary);
+}
+
+/* Short viewport height adjustments */
+@media (max-height: 800px) {
+  .about-section {
+    padding: 4rem 2rem;
+  }
+
+  .about-content {
+    gap: 2rem;
+  }
+}
+
+@media (max-height: 650px) {
+  .about-section {
+    padding: 3rem 2rem;
+  }
+
+  .about-content {
+    gap: 1.5rem;
+  }
+}
+</style>

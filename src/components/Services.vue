@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useI18n, type Locale } from '@/composables/useI18n';
+import Features from './Features.vue';
+import SectionImage from './SectionImage.vue';
 
 interface Service {
   icon: string;
@@ -22,29 +24,55 @@ const services = computed(() => {
 </script>
 
 <template>
-  <section id="services" class="services-section">
-    <div class="services-content">
-      <div class="services-image">
-        <img src="/laptop.webp" height="750px" width="500px" alt="Photo by https://unsplash.com/@markusspiske?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText Markus Spiske https://unsplash.com/photos/a-close-up-of-a-laptop-on-a-table-jbRFQ1wZTYY?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText Unsplash" />
-      </div>
-      <div class="services-text">
-        <h2>{{ t('services.title') }}</h2>
-        <p>{{ t('services.intro') }}</p>
-        <p>{{ t('services.description') }}</p>
-        <div class="services-list">
-          <div 
-            v-for="service in services" 
-            :key="service.title" 
-            class="service-item"
-          >
-            <span class="service-icon">{{ service.icon }}</span>
-            <div>
-              <h3>{{ service.title }}</h3>
-              <p>{{ service.description }}</p>
-            </div>
-          </div>
-        </div>
+  <section id="services" class="services-section section-viewport streak-services text-[var(--services-text-color)] px-8 py-24">
+    <div class="services-content section-grid max-md:grid-cols-1">
+      <SectionImage
+        src="/laptop.webp"
+        alt="Photo by Markus Spiske on Unsplash"
+        width="500"
+        height="750"
+        maxWidth="500px"
+        alignment="start"
+        animateOnScroll
+        animationDirection="left"
+        filterPreset="services"
+        class="order-1"
+      />
+      <div class="section-text order-2">
+        <h2 class="text-[var(--services-heading-color)]">{{ t('services.title') }}</h2>
+        <p style="color: var(--services-text-color)">{{ t('services.intro') }}</p>
+        <p style="color: var(--services-text-color)">{{ t('services.description') }}</p>
+        <Features :features="services" :forceTwoLines="true" />
       </div>
     </div>
   </section>
 </template>
+
+<style scoped>
+.services-content :deep(img) {
+  max-height: min(750px, 60vh);
+  width: auto;
+  object-fit: contain;
+}
+
+/* Short viewport height adjustments */
+@media (max-height: 800px) {
+  .services-section {
+    padding: 4rem 2rem;
+  }
+
+  .services-content {
+    gap: 2rem;
+  }
+}
+
+@media (max-height: 650px) {
+  .services-section {
+    padding: 3rem 2rem;
+  }
+
+  .services-content {
+    gap: 1.5rem;
+  }
+}
+</style>

@@ -14,24 +14,24 @@
     },
     "features": [
       {
-        "icon": "📦",
-        "title": "Lightning Fast",
-        "description": "Optimised performance with groundbreaking technology to accelerate your digital transformation journey."
+        "icon": "fa7-solid:map-location-dot",
+        "title": "Local Roots",
+        "description": "Based in Førde, locally rooted with a global reach."
       },
       {
-        "icon": "🎯",
-        "title": "Unmatched Experience",
-        "description": "24/7 support from experienced engineers, backed by our 99.99% uptime guarantee."
+        "icon": "fa7-solid:wrench",
+        "title": "Craftsmanship",
+        "description": "Experienced consultants with broad technical expertise."
       },
       {
-        "icon": "🔒",
-        "title": "Your Data, Your Rules",
-        "description": "Protected by industry regulations and best practice. Security and compliance prioritised."
+        "icon": "fa7-solid:lock",
+        "title": "Secure Data Handling",
+        "description": "Safe and secure data handling, your data is in safe hands."
       },
       {
-        "icon": "💎",
-        "title": "No Hidden Costs",
-        "description": "Transparent pricing every month. Fixed, clear pricing without surprises."
+        "icon": "fa7-solid:check-circle",
+        "title": "Results-Oriented",
+        "description": "Effective solutions that deliver value from analysis to final outcome, at the right price."
       }
     ]
   },
@@ -41,22 +41,22 @@
     "description": "We have extensive experience with small and large software solutions, from dozens to millions of users. Additionally, we have experience with electronics solutions, from specification and certification to implementation and design.",
     "items": [
       {
-        "icon": "☁️",
+        "icon": "fa7-solid:cloud",
         "title": "Cloud Solutions",
         "description": "Scalable infrastructure and migration expertise"
       },
       {
-        "icon": "🤖",
+        "icon": "fa7-solid:robot",
         "title": "AI",
         "description": "Extensive experience with artificial intelligence"
       },
       {
-        "icon": "⚙️",
+        "icon": "fa7-solid:cog",
         "title": "Comprehensive Solutions",
         "description": "Expertise in software, infrastructure, electronics and consultancy"
       },
       {
-        "icon": "📊",
+        "icon": "fa7-solid:chart-bar",
         "title": "Consultancy",
         "description": "Software, hardware and IT architecture design"
       }
@@ -67,25 +67,25 @@
     "lead": "Purpeon Digital is an innovative consultancy firm, and our consultants have many years of experience helping businesses navigate the complexity of modern technology.",
     "description1": "Extensive experience from various industries, both public and private sector, gives us unique insight into the challenges businesses face today.",
     "description2": "With expertise spanning both IT and hardware, we are in a unique position to offer comprehensive technology solutions.",
-    "description3": "The name Purpeon Digital comes from the flower foxglove (Digitalis purpurea), which was also the county flower of Sogn og Fjordane, thus reflecting our local connection and identity.",
+    "description3": "The name Purpeon Digital originates from the flower foxglove (Digitalis purpurea), which was also the county flower of Sogn og Fjordane, thus reflecting our local connection and identity.",
     "values": [
       {
-        "icon": "🤝",
+        "icon": "fa7-solid:handshake-alt",
         "title": "Partnership",
         "description": "We build lasting relationships based on trust and mutual success."
       },
       {
-        "icon": "🎯",
+        "icon": "fa7-solid:face-grin-stars",
         "title": "Excellence",
         "description": "Every project receives our full commitment to quality and precision."
       },
       {
-        "icon": "💡",
+        "icon": "fa7-solid:lightbulb",
         "title": "Innovation",
         "description": "We stay ahead of technology trends to deliver groundbreaking solutions."
       },
       {
-        "icon": "🔍",
+        "icon": "fa7-solid:book-open-reader",
         "title": "Transparency",
         "description": "Clear communication and honest advice at every step."
       }
@@ -95,30 +95,10 @@
     "title": "Contact Us",
     "lead": "Ready to transform your business with technology? Get in touch with our team today.",
     "description": "We are here to answer your questions and provide expert guidance on your IT initiatives. Whether you need a consultation, have a specific project in mind, or simply want to learn more about our services, we would love to hear from you.",
-    "methods": [
-      {
-        "icon": "fa6-solid:paper-plane",
-        "label": "Email",
-        "value": "support@purpeon.com",
-        "href": "mailto:support@purpeon.com"
-      },
-      {
-        "icon": "fa6-solid:phone",
-        "label": "Phone",
-        "value": "+47 959 92 555",
-        "href": "tel:+4795992555"
-      },
-      {
-        "icon": "fa7-solid:map-location-dot",
-        "label": "Location",
-        "value": "PEAK Sunnfjord, Hafstadvegen 23-25, 6800 Førde, Norway"
-      },
-      {
-        "icon": "fa6-solid:newspaper",
-        "label": "Organization number",
-        "value": "836 295 722"
-      }
-    ]
+    "email": "Email",
+    "phone": "Phone",
+    "location": "Location",
+    "orgNumber": "Organization Number"
   },
   "language": {
     "select": "Language",

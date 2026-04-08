@@ -5,9 +5,18 @@ import Hero from '@/components/Hero.vue';
 import Services from '@/components/Services.vue';
 import About from '@/components/About.vue';
 import Contact from '@/components/Contact.vue';
-import Footer from '@/components/Footer.vue';
 
-const locale = 'en';
+// Generate static paths for both language routes
+export function getStaticPaths() {
+  return [
+    { params: { lang: undefined } },  // Root path '/' for Norwegian (default)
+    { params: { lang: 'en' } }        // '/en/' for English
+  ];
+}
+
+// Determine locale from URL param, default to 'no' for root
+const { lang } = Astro.params;
+const locale = lang || 'no';
 ---
 
 <Layout locale={locale}>
@@ -18,5 +27,4 @@ const locale = 'en';
     <About client:load locale={locale} />
     <Contact client:load locale={locale} />
   </main>
-  <Footer client:load locale={locale} />
 </Layout>

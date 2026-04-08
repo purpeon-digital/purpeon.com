@@ -14,24 +14,24 @@
     },
     "features": [
       {
-        "icon": "⚡",
-        "title": "Lynrask",
-        "description": "Optimalisert yting med moderne teknologi som set fart på den digitale omstillinga di."
+        "icon": "fa7-solid:map-location-dot",
+        "title": "Lokal tilhøyring",
+        "description": "Frå Førde, med lokal forankring og global rekkevidde."
       },
       {
-        "icon": "🔧",
-        "title": "Driftstryggleik og kompetanse",
-        "description": "Støtte frå erfarne ingeniørar med garantert respons neste arbeidsdag."
+        "icon": "fa7-solid:wrench",
+        "title": "Solid handverk",
+        "description": "Erfarne konsulentar med brei teknisk kompetanse."
       },
       {
-        "icon": "🔒",
-        "title": "Trygg databehandling på europeisk sky",
-        "description": "Vi har solid GDPR-kompetanse og nyttar primært europeiske skytenester. Trygg databehandling, i tråd med regelverket, som standard."
+        "icon": "fa7-solid:lock",
+        "title": "Trygg databehandling",
+        "description": "Trygg og sikker databehandling, dine data er i trygge hender."
       },
       {
-        "icon": "📌",
-        "title": "Rett innsats på rett stad",
-        "description": "Vi brukar tida på det som gir verdi: analyse, utvikling og løysing. Prisinga blir tilpassa behov og omfang."
+        "icon": "fa7-solid:check-circle",
+        "title": "Løysingsfokus",
+        "description": "Effektive løysingar som gir verdi frå analyse til ferdig resultat, til rett pris."
       }
     ]
   },
@@ -41,22 +41,22 @@
     "description": "Vi har lang erfaring med små og store programvareløysingar, frå titals til millionar av brukarar. I tillegg har vi erfaring med elektronikkløysingar, frå spesifikasjon og sertifisering til implementering og design.",
     "items": [
       {
-        "icon": "☁️",
+        "icon": "fa7-solid:cloud",
         "title": "Skyløysingar",
         "description": "Skalerbar infrastruktur og migreringsekspertise"
       },
       {
-        "icon": "🤖",
+        "icon": "fa7-solid:robot",
         "title": "KI",
-        "description": "Lang erfaring med kunstig intelligens"
+        "description": "Vi var tidleg ute med å ta i bruk kunstig intelligens, og veit å bruke det rett"
       },
       {
-        "icon": "⚙️",
+        "icon": "fa7-solid:cog",
         "title": "Heilskaplege løysingar",
         "description": "Ekspertise innan både programvare, infrastruktur, elektronikk og rådgjeving"
       },
       {
-        "icon": "📊",
+        "icon": "fa7-solid:chart-bar",
         "title": "Rådgjeving",
         "description": "Programvare, hardware og IT-arkitekturdesign"
       }
@@ -70,22 +70,22 @@
     "description3": "Namnet Purpeon Digital kjem frå blomsten revebjelle (Digitalis purpurea), som også var fylkesblomsten i Sogn og Fjordane, og spegler dermed vår lokale tilknyting og identitet.",
     "values": [
       {
-        "icon": "🤝",
+        "icon": "fa7-solid:handshake-alt",
         "title": "Partnarskap",
         "description": "Vi byggjer varige relasjonar basert på tillit og gjensidig suksess."
       },
       {
-        "icon": "🎯",
+        "icon": "fa7-solid:face-grin-stars",
         "title": "Fortreffelighet",
         "description": "Kvart prosjekt får vår fulle forplikting til kvalitet og presisjon."
       },
       {
-        "icon": "💡",
+        "icon": "fa7-solid:lightbulb",
         "title": "Innovasjon",
         "description": "Vi held oss føre teknologitrendar for å levere banebrytande løysingar."
       },
       {
-        "icon": "🔍",
+        "icon": "fa7-solid:book-open-reader",
         "title": "Openheit",
         "description": "Klar kommunikasjon og ærlige råd ved kvart steg."
       }
@@ -95,30 +95,10 @@
     "title": "Kontakt oss",
     "lead": "Klar til å transformere bedrifta di med teknologi? Ta kontakt med teamet vårt i dag.",
     "description": "Vi er her for å svare på spørsmåla dine og gi ekspertveiledning om dine IT-initiativ. Anten du treng ein konsultasjon, har eit spesifikt prosjekt i tankane, eller berre vil lære meir om tenestene våre, vil vi gjerne høyre frå deg.",
-    "methods": [
-      {
-        "icon": "fa6-solid:paper-plane",
-        "label": "E-post",
-        "value": "support@purpeon.com",
-        "href": "mailto:support@purpeon.com"
-      },
-      {
-        "icon": "fa6-solid:phone",
-        "label": "Telefon",
-        "value": "+47 959 92 555",
-        "href": "tel:+4795992555"
-      },
-      {
-        "icon": "fa7-solid:map-location-dot",
-        "label": "Stad",
-        "value": "PEAK Sunnfjord, Hafstadvegen 23-25, 6800 Førde"
-      },
-      {
-        "icon": "fa6-solid:newspaper",
-        "label": "Organisasjonsnummer",
-        "value": "836 295 722"
-      }
-    ]
+    "email": "E-post",
+    "phone": "Telefon",
+    "location": "Stad",
+    "orgNumber": "Organisasjonsnummer"
   },
   "language": {
     "select": "Språk",
