@@ -75,6 +75,11 @@ const containerClasses = computed(() => [
 </template>
 
 <style scoped>
+.section-image {
+  /* Base styles */
+  width: 100%;
+  height: auto;
+}
 /* Filter presets — complex multi-value filters + blend modes */
 .section-image--hero img {
   filter: brightness(0.9) contrast(1.1);

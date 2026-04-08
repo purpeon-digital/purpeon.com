@@ -41,7 +41,6 @@ const features = computed(() => {
         </div>
       </div>
       <div class="hero-image flex items-center" style="max-height: min(600px, 50vh)">
-        <!-- <img src="/logo.svg" /> -->
         <SectionImage
           src="/logo.svg"
           alt="Logo"
