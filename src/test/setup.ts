@@ -10,14 +10,16 @@ config.global.stubs = {
 };
 
 // Mock IntersectionObserver for scroll animations
-const mockIntersectionObserver = vi.fn().mockImplementation((callback) => ({
-  observe: vi.fn((element) => {
-    // Immediately trigger the callback with isIntersecting: true for testing
-    callback([{ isIntersecting: true, target: element }]);
-  }),
-  unobserve: vi.fn(),
-  disconnect: vi.fn()
-}));
+const mockIntersectionObserver = vi.fn(function(callback) {
+  return {
+    observe: function(element: Element) {
+      // Immediately trigger the callback with isIntersecting: true for testing
+      callback([{ isIntersecting: true, target: element }]);
+    },
+    unobserve: function() {},
+    disconnect: function() {}
+  };
+});
 
 vi.stubGlobal('IntersectionObserver', mockIntersectionObserver);
 
