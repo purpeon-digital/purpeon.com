@@ -28,7 +28,7 @@ const services = computed(() => {
     <div class="services-content section-grid max-md:grid-cols-1">
       <SectionImage
         src="/laptop.webp"
-        alt="Photo by Markus Spiske on Unsplash"
+        alt="Software development and IT infrastructure services by Purpeon Digital - Photo by Markus Spiske on Unsplash"
         width="500"
         height="750"
         maxWidth="500px"

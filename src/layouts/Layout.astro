@@ -11,18 +11,149 @@ const {
   locale = 'no'
 } = Astro.props;
 
-const titles = {
-  en: 'Purpeon Digital - IT Consulting',
-  no: 'Purpeon Digital - IT Konsulenter'
+const siteUrl = 'https://purpeon.com';
+
+// --- SEO-optimized titles & descriptions ---
+const titles: Record<string, string> = {
+  en: 'Purpeon Digital | IT Consulting in Førde, Norway – Software, Cloud & AI',
+  no: 'Purpeon Digital | IT-konsulent i Førde – Programvare, Sky og KI'
 };
 
-const descriptions = {
-  en: 'Purpeon Digital - Professional IT consulting services for your business',
-  no: 'Purpeon Digital - Profesjonelle IT-konsultasjonstjenester for din bedrift'
+const descriptions: Record<string, string> = {
+  en: 'Purpeon Digital is an IT consulting company in Førde, Norway. Software development, cloud infrastructure, AI solutions and electronics consulting for businesses of all sizes.',
+  no: 'Purpeon Digital er eit IT-konsulentselskap i Førde, Vestland. Programvareutvikling, skyinfrastruktur, KI-løysingar og elektronikkrådgjeving for bedrifter i alle storleikar.'
 };
 
 const title = titles[locale];
 const description = descriptions[locale];
+
+// --- URLs ---
+const canonicalUrl = locale === 'no' ? `${siteUrl}/` : `${siteUrl}/en/`;
+const alternateNo = `${siteUrl}/`;
+const alternateEn = `${siteUrl}/en/`;
+
+// --- Open Graph ---
+const ogLocale = locale === 'no' ? 'nb_NO' : 'en_US';
+const ogLocaleAlternate = locale === 'no' ? 'en_US' : 'nb_NO';
+const ogImage = `${siteUrl}/og-image.png`;
+
+// --- JSON-LD Structured Data ---
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": `${siteUrl}/#organization`,
+  "name": "Purpeon Digital",
+  "alternateName": "Purpeon Digital AS",
+  "url": siteUrl,
+  "logo": {
+    "@type": "ImageObject",
+    "url": `${siteUrl}/favicon/web-app-manifest-512x512.png`,
+    "width": 512,
+    "height": 512
+  },
+  "image": `${siteUrl}/logo.svg`,
+  "description": descriptions.en,
+  "telephone": "+4795992555",
+  "email": "kontakt@purpeon.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Hafstadvegen 23-25",
+    "addressLocality": "Førde",
+    "postalCode": "6800",
+    "addressRegion": "Vestland",
+    "addressCountry": "NO"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 61.4504,
+    "longitude": 5.8520
+  },
+  "areaServed": [
+    { "@type": "Country", "name": "Norway" },
+    { "@type": "AdministrativeArea", "name": "Vestland" }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "IT Consulting Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Software Development",
+          "description": "Custom software solutions from small applications to enterprise-scale systems"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Cloud Solutions",
+          "description": "Scalable cloud infrastructure, migration, and management"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "AI Consulting",
+          "description": "Artificial intelligence strategy, implementation, and integration"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Electronics Consulting",
+          "description": "Electronics specification, certification, design, and implementation"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "IT Architecture & Advisory",
+          "description": "IT architecture design, project management, and strategic technology consulting"
+        }
+      }
+    ]
+  }
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
+  "name": "Purpeon Digital",
+  "url": siteUrl,
+  "inLanguage": ["no", "en"],
+  "publisher": { "@id": `${siteUrl}/#organization` }
+};
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": canonicalUrl,
+  "url": canonicalUrl,
+  "name": title,
+  "description": description,
+  "inLanguage": locale === 'no' ? 'no' : 'en',
+  "isPartOf": { "@id": `${siteUrl}/#website` },
+  "about": { "@id": `${siteUrl}/#organization` }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": locale === 'no' ? 'Heim' : 'Home',
+      "item": canonicalUrl
+    }
+  ]
+};
 ---
 
 <!DOCTYPE html>
@@ -30,16 +161,66 @@ const description = descriptions[locale];
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO -->
+    <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Language alternates -->
+    <link rel="alternate" hreflang="no" href={alternateNo} />
+    <link rel="alternate" hreflang="en" href={alternateEn} />
+    <link rel="alternate" hreflang="x-default" href={alternateNo} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Purpeon Digital" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Purpeon Digital – IT Consulting" />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlternate} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Purpeon Digital – IT Consulting" />
+
+    <!-- Geo / local SEO -->
+    <meta name="geo.region" content="NO-46" />
+    <meta name="geo.placename" content="Førde" />
+    <meta name="geo.position" content="61.4504;5.8520" />
+    <meta name="ICBM" content="61.4504, 5.8520" />
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#6b46c1" />
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- Favicons -->
     <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <link rel="shortcut icon" href="/favicon/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
-    <link rel="preconnect" href="https://api.iconify.design">
-    <title>{title}</title>
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://api.iconify.design" />
+    <link rel="dns-prefetch" href="https://api.iconify.design" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+    <!-- Anti-flicker -->
     <style>
-      /* Anti-flicker: hide body until hydration completes */
       body.loading {
         visibility: hidden;
       }
@@ -47,36 +228,31 @@ const description = descriptions[locale];
         visibility: visible;
       }
     </style>
-    <script defer src="https://analytics.retardroulette.com/script.js" data-website-id="9746fa1b-8239-4713-9833-82a9edfc9890"></script>
-    <script is:inline define:vars={{ locale }}>
-      // Set initial locale from SSR - must happen before any component loads
-      window.__INITIAL_LOCALE__ = locale;
-      
-      // Set initial theme from persisted value or system preference - must happen before any component loads
-      let storedTheme = null;
 
+    <!-- Analytics -->
+    <script defer src="https://analytics.retardroulette.com/script.js" data-website-id="9746fa1b-8239-4713-9833-82a9edfc9890"></script>
+
+    <!-- Initial state setup -->
+    <script is:inline define:vars={{ locale }}>
+      window.__INITIAL_LOCALE__ = locale;
+
+      let storedTheme = null;
       try {
         storedTheme = localStorage.getItem('theme');
-      } catch (e) {
-        // localStorage can fail (e.g., Safari private mode); ignore and use preference
-      }
+      } catch (e) {}
       const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       const initialTheme = storedTheme || (systemPrefersDark ? 'dark' : 'light');
 
       window.__INITIAL_THEME__ = initialTheme;
       document.documentElement.setAttribute('data-theme', initialTheme);
       document.documentElement.setAttribute('data-theme-resolved', 'false');
-      
-      // Save the locale to localStorage if viewing a language page
-      // but don't redirect to avoid flicker
+
       try {
         const savedLocale = localStorage.getItem('locale');
         if (!savedLocale || (savedLocale !== locale)) {
           localStorage.setItem('locale', locale);
         }
-      } catch (e) {
-        // Ignore storage failures
-      }
+      } catch (e) {}
     </script>
     <script>
       import 'iconify-icon';
@@ -85,7 +261,6 @@ const description = descriptions[locale];
   <body class="loading">
     <slot />
     <script is:inline>
-      // Show body immediately after DOM is ready
       document.body.classList.remove('loading');
       document.body.classList.add('loaded');
     </script>

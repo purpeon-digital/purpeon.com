@@ -53,7 +53,7 @@ function scrollToSection(e: Event, href: string) {
     <nav class="max-w-[1400px] mx-auto px-8 flex justify-between items-center w-full h-full max-md:px-4 max-md:h-auto max-md:min-h-[52px]">
       <a href="#" class="logo" @click.prevent="scrollToSection($event, '#')">
         <span class="logo-icon">
-          <img src="/bell_logo.svg" alt="Logo" class="h-full w-full" />
+          <img src="/bell_logo.svg" alt="Purpeon Digital" class="h-full w-full" />
         </span>
         <span class="logo-text">Purpeon <span class="font-normal opacity-85">Digital</span></span>
       </a>

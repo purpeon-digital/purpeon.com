@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import vue from '@astrojs/vue';
 import tailwindcss from '@tailwindcss/vite';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   output: 'static',
@@ -13,6 +14,15 @@ export default defineConfig({
         compilerOptions: {
           // Treat iconify web component as custom element to avoid Vue resolution warnings
           isCustomElement: (tag) => tag === 'iconify-icon'
+        }
+      }
+    }),
+    sitemap({
+      i18n: {
+        defaultLocale: 'no',
+        locales: {
+          no: 'no',
+          en: 'en'
         }
       }
     })

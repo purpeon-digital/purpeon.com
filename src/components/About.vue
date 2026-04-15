@@ -36,7 +36,7 @@ const values = computed(() => {
       </div>
       <SectionImage
         src="/foxglove_photo.jpg"
-        alt="Foxglove - Photo by Annie Spratt on Unsplash"
+        alt="Revebjelle (foxglove) – inspirasjon for Purpeon Digital sitt namn og lokale identitet i Sogn og Fjordane - Photo by Annie Spratt on Unsplash"
         width="480"
         height="640"
         maxWidth="480px"

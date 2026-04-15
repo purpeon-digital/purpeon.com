@@ -34,7 +34,7 @@ const features = computed(() => {
           </div>
           <img
             src="/logo.svg"
-            alt="Purpeon Digital"
+            alt="Purpeon Digital – IT-konsulentselskap i Førde, Norge"
             fetchpriority="high"
             class="hero-mobile-logo md:hidden shrink-0"
           />
@@ -53,7 +53,7 @@ const features = computed(() => {
       <div class="hero-image flex items-center max-md:hidden" style="max-height: min(600px, 50vh)">
         <SectionImage
           src="/logo.svg"
-          alt="Logo"
+          alt="Purpeon Digital logo – IT consulting, software and cloud solutions"
           width="400"
           height="600"
           maxWidth="400px"
