@@ -28,6 +28,12 @@ function toggleTheme() {
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
     html.setAttribute('data-theme', newTheme);
+
+    const themeColorMeta = document.querySelector('meta[data-theme-color]');
+    if (themeColorMeta) {
+        themeColorMeta.setAttribute('content', newTheme === 'dark' ? '#1a1a2e' : '#6b46c1');
+    }
+
     try {
         localStorage.setItem('theme', newTheme);
     } catch (e) { }

@@ -199,7 +199,7 @@ const breadcrumbSchema = {
     <meta name="ICBM" content="61.4504, 5.8520" />
 
     <!-- Theme -->
-    <meta name="theme-color" content="#6b46c1" />
+    <meta name="theme-color" content="#6b46c1" data-theme-color />
     <meta name="color-scheme" content="light dark" />
 
     <!-- Favicons -->
@@ -246,6 +246,11 @@ const breadcrumbSchema = {
       window.__INITIAL_THEME__ = initialTheme;
       document.documentElement.setAttribute('data-theme', initialTheme);
       document.documentElement.setAttribute('data-theme-resolved', 'false');
+
+      const themeColorMeta = document.querySelector('meta[data-theme-color]');
+      if (themeColorMeta) {
+        themeColorMeta.setAttribute('content', initialTheme === 'dark' ? '#1a1a2e' : '#6b46c1');
+      }
 
       try {
         const savedLocale = localStorage.getItem('locale');

@@ -4,69 +4,64 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Astro 5 website with Vue 3 components for Purpeon Digital IT consulting. Statically generated site with bilingual support (English/Norwegian).
+Astro 6 static website with Vue 3 islands for Purpeon Digital IT consulting. Bilingual (Norwegian default, English). Single-page: all sections render on one dynamic route.
 
 ## Tech Stack
 
-- **Framework**: Astro 6 (static output)
-- **UI Components**: Vue 3 with `<script setup>` and TypeScript
-- **Package Manager**: Bun - always use bun commands!
-- **Testing**: Vitest with Vue Test Utils and jsdom
-- **Styling**: Tailwind CSS 4 with `@tailwindcss/vite` plugin, plus custom CSS for complex gradients/animations
-- **Theme**: Light/dark mode via `data-theme` attribute on `<html>`, with Tailwind `dark:` and `light:` variants
-- **i18n**: Custom composable-based system supporting English and Norwegian
-
-## Key Patterns
-
-### Vue Components
-- Use `<script setup lang="ts">` for all components
-- Static components render server-side (no directive needed)
-- Interactive components use `client:load` in Astro pages
-- Component tests go in `src/components/__tests__/` with `.spec.ts` extension
-- Test pattern: use Vue Test Utils `mount()` with `jsdom` environment
-
-### i18n System
-- Bilingual site: Norwegian (default at `/`) and English (at `/en/`)
-- Routes generated via `getStaticPaths()` in `src/pages/[...lang].astro`
-- Client-side locale management via `useI18n()` composable from `src/composables/useI18n.ts`
-- Translation files: `src/i18n/en.json` and `src/i18n/no.json`
-- `useI18n()` returns: `locale` (computed), `messages` (computed), `t()` function, `setLocale()` function
-- Pass `locale` prop from Astro to interactive components; they sync via `onMounted()`
-
-### Styling
-- Tailwind CSS 4 via `@tailwindcss/vite` plugin (configured in `astro.config.mjs`)
-- Entry point: `src/styles/app.css` — `@theme` tokens, `@variant` for dark/light, `@utility` for shared patterns, base styles, CSS custom properties
-- Streak gradient backgrounds: `src/styles/streaks.css` — per-section decorative backgrounds
-- Shared animations: `src/styles/animations.css`
-- Use Tailwind utility classes in templates for layout, spacing, typography, responsive breakpoints
-- Keep scoped CSS in components only for things Tailwind can't express (complex gradients, SVG animations, filter presets, pseudo-elements)
-- Custom `section-viewport` utility for fullscreen scroll-snap sections
-- Custom `section-grid` utility for 2-column section layouts
-- Breakpoints: `sm` (480px), `md` (768px), `lg` (1200px), `xl` (1400px)
-- Theme switching uses `@variant dark` and `@variant light` mapped to `[data-theme]` attribute
-
-### File Organization
-- Pages: `src/pages/*.astro`
-- Components: `src/components/*.vue`
-- Composables: `src/composables/*.ts`
-- Layouts: `src/layouts/*.astro`
-- Styles: `src/styles/app.css`, `src/styles/streaks.css`, `src/styles/animations.css`
-- Translations: `src/i18n/*.json`
-- Tests: `src/**/__tests__/*.spec.ts`
-- Test setup: `src/test/setup.ts`
-- Static assets: `public/`
+- **Framework**: Astro 6 (`output: 'static'`)
+- **UI**: Vue 3 with `<script setup lang="ts">`, hydrated as islands
+- **Package manager**: Bun — always use `bun` (not npm/yarn/pnpm)
+- **Styling**: Tailwind CSS 4 via `@tailwindcss/vite`; custom CSS for gradients/SVG animations only
+- **Testing**: Vitest + Vue Test Utils + jsdom
+- **i18n**: Astro native routing + custom `useI18n()` composable for client reactivity
 
 ## Commands
 
 ```bash
-bun dev              # Development server (hot reload)
-bun run build        # Production build (static HTML output)
-bun preview          # Preview production build locally
-bun test             # Run tests in watch mode
-bun test:run         # Run tests once (CI mode)
-bun test:coverage    # Run tests with coverage report
+bun dev                          # Dev server on http://localhost:4321
+bun run build                    # Static build to ./dist
+bun preview                      # Preview the built site
+bun test                         # Vitest watch mode
+bun test:run                     # Single-pass run (CI)
+bun test:coverage                # With coverage
+bun test:run path/to/file.spec.ts         # Run one test file
+bun test:run -t "pattern"                 # Filter by test name
 ```
+
+## Architecture
+
+### Routing & i18n (two-layer system)
+
+1. **Astro layer** (`astro.config.mjs` + `src/pages/[...lang].astro`): defines locales `['en', 'no']` with `defaultLocale: 'no'` and `prefixDefaultLocale: false`. `getStaticPaths()` emits `/` (Norwegian) and `/en/` (English). The `locale` value is passed as a prop into every Vue island.
+2. **Vue layer** (`src/composables/useI18n.ts`): a single module-level `ref` holds `currentLocale`, shared across all components. Components call `useI18n(initialLocale)` passing the SSR prop so client hydration matches server output without flicker. `setLocale()` also redirects the page to the matching route.
+3. **Translations**: `src/i18n/{en,no}.json`. `t('a.b.c')` is typed via `PathValue<TranslationSchema, K>` — adding new keys requires they exist in both files to satisfy the type.
+
+### SSR → client hydration handoff
+
+`Layout.astro` emits an inline `<script is:inline>` that sets `window.__INITIAL_LOCALE__` and `window.__INITIAL_THEME__` before any Vue island loads. This is the source of truth that `useI18n()` and `ThemeToggle.vue` read on mount. An anti-flicker pattern uses `body.loading` → `body.loaded` plus `data-theme-resolved` on `<html>` to hide content until the theme/locale are synced. Do not remove the inline script or the loading class without replacing this mechanism.
+
+### Styling layers
+
+- `src/styles/app.css` is the single Tailwind entry — `@theme` tokens, `@variant dark`/`@variant light` mapped to `[data-theme]`, `@utility` definitions (including `section-viewport` and `section-grid`), base styles, and CSS custom properties.
+- `src/styles/streaks.css` — per-section decorative gradient backgrounds.
+- `src/styles/animations.css` — shared keyframes.
+- Use Tailwind utilities in templates. Only drop to scoped `<style>` in components for things Tailwind can't express (complex gradients, SVG `d:` path morphing, filter presets, pseudo-elements).
+- Breakpoints: `sm` 480px, `md` 768px, `lg` 1200px, `xl` 1400px.
+
+### Testing
+
+- Specs live in `src/components/__tests__/*.spec.ts`; global setup is `src/test/setup.ts`.
+- Setup mocks `IntersectionObserver` to fire immediately (scroll-triggered animations run synchronously in tests) and stubs `iconify-icon` — add new globals/web-component stubs there, not in individual specs.
+- `__INITIAL_LOCALE__`/`__INITIAL_THEME__` are pre-set on `window` in the setup file; tests can mutate them.
+
+### Iconify custom element
+
+`iconify-icon` is a web component, registered as a Vue custom element in **two places** that must stay in sync: `astro.config.mjs` (`vue.template.compilerOptions.isCustomElement`) and `vitest.config.ts`. If you switch icon libraries, update both.
+
+### Deployment
+
+Static output to `./dist`. GitHub Actions workflow at `.github/workflows/deploy.yml`. Custom domain via `CNAME` file. `@astrojs/sitemap` generates per-locale sitemaps matching the Astro i18n config.
 
 ## Path Aliases
 
-`@/*` maps to `src/*` (configured in both `tsconfig.json` and `vitest.config.ts`)
+`@/*` → `src/*`, configured in both `tsconfig.json` and `vitest.config.ts`. Keep them in sync.
