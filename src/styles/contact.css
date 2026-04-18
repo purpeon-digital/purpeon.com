@@ -1,0 +1,28 @@
+/* ============================================================
+   CONTACT SECTION — light-theme overrides
+   Lives globally because Vue's :global() inside scoped <style>
+   was silently dropping these rules during the build, leaving
+   the footer at near-zero contrast on the pale-lavender light
+   contact section. Specificity bumped via `.contact-footer`
+   ancestor so we beat the scoped base rules.
+   ============================================================ */
+
+[data-theme="light"] .contact-footer .footer-text {
+  color: var(--color-text-secondary);
+}
+
+[data-theme="light"] .contact-footer .footer-text:hover {
+  color: var(--color-text-primary);
+}
+
+[data-theme="light"] .contact-footer .footer-divider {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(107, 70, 193, 0.25) 20%,
+    rgba(107, 70, 193, 0.45) 50%,
+    rgba(107, 70, 193, 0.25) 80%,
+    transparent 100%
+  );
+  box-shadow: none;
+}

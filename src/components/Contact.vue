@@ -143,18 +143,8 @@ const toggleMap = () => {
   color: rgba(255, 255, 255, 0.9);
 }
 
-:global([data-theme="light"]) .footer-text {
-  color: rgba(0, 0, 0);
-}
-
-:global([data-theme="light"]) .footer-divider {
-  background: linear-gradient(90deg,
-      transparent 0%,
-      rgba(45, 45, 45, 0.15) 20%,
-      rgba(45, 45, 45, 0.2) 50%,
-      rgba(45, 45, 45, 0.15) 80%,
-      transparent 100%);
-}
+/* Light-theme overrides live in src/styles/contact.css — Vue's :global()
+   inside scoped styles silently drops them during build. */
 
 /* Short viewport height adjustments */
 @media (max-height: 800px) {

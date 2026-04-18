@@ -10,6 +10,7 @@ const props = defineProps<{
 
 const { t } = useI18n(props.locale);
 const mobileMenuOpen = ref(false);
+const isMobile = ref(false);
 
 function openMobileMenu() {
   mobileMenuOpen.value = true;
@@ -32,6 +33,10 @@ function handleKeydown(e: KeyboardEvent) {
 }
 
 let themeObserver: MutationObserver | null = null;
+let mobileMq: MediaQueryList | null = null;
+const updateIsMobile = (e: MediaQueryListEvent | MediaQueryList) => {
+  isMobile.value = e.matches;
+};
 
 onMounted(() => {
   window.addEventListener('keydown', handleKeydown);
@@ -42,11 +47,15 @@ onMounted(() => {
     attributes: true,
     attributeFilter: ['data-theme'],
   });
+  mobileMq = window.matchMedia('(max-width: 768px)');
+  isMobile.value = mobileMq.matches;
+  mobileMq.addEventListener('change', updateIsMobile);
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleKeydown);
   themeObserver?.disconnect();
+  mobileMq?.removeEventListener('change', updateIsMobile);
   document.body.style.overflow = '';
 });
 
@@ -114,7 +123,7 @@ function scrollToSection(e: Event, href: string) {
         <span></span>
       </button>
 
-      <div id="mobile-nav" class="nav-right" :class="{ 'mobile-open': mobileMenuOpen }" :aria-hidden="!mobileMenuOpen">
+      <div id="mobile-nav" class="nav-right" :class="{ 'mobile-open': mobileMenuOpen }" :inert="(isMobile && !mobileMenuOpen) || null">
         <span class="nav-accent" aria-hidden="true"></span>
         <ul class="nav-links">
           <li>
