@@ -104,5 +104,12 @@
     "select": "Language",
     "en": "English",
     "no": "Norwegian"
+  },
+  "cookies": {
+    "before": "",
+    "emphasis": "No",
+    "after": " cookies. Nothing to accept.",
+    "dismiss": "Nice",
+    "ariaLabel": "No cookie notice"
   }
 }

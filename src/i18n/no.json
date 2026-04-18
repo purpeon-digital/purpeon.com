@@ -104,5 +104,12 @@
     "select": "Språk",
     "en": "Engelsk",
     "no": "Norsk"
+  },
+  "cookies": {
+    "before": "",
+    "emphasis": "Ingen",
+    "after": " cookies. Ingenting å godkjenne.",
+    "dismiss": "Flott",
+    "ariaLabel": "Melding om ingen informasjonskapsler"
   }
 }
