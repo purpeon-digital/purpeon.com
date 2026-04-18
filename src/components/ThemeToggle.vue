@@ -12,7 +12,6 @@ onMounted(() => {
     // Small delay to ensure smooth animation from neutral state
     requestAnimationFrame(() => {
         theme.value = domTheme;
-        html.setAttribute('data-theme-resolved', 'true');
     });
 
     try {

@@ -216,16 +216,6 @@ const breadcrumbSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
-    <!-- Anti-flicker -->
-    <style>
-      body.loading {
-        visibility: hidden;
-      }
-      body.loaded {
-        visibility: visible;
-      }
-    </style>
-
     <!-- Analytics -->
     <script defer src="https://analytics.retardroulette.com/script.js" data-website-id="9746fa1b-8239-4713-9833-82a9edfc9890"></script>
 
@@ -242,7 +232,6 @@ const breadcrumbSchema = {
 
       window.__INITIAL_THEME__ = initialTheme;
       document.documentElement.setAttribute('data-theme', initialTheme);
-      document.documentElement.setAttribute('data-theme-resolved', 'false');
 
       const themeColorMeta = document.querySelector('meta[data-theme-color]');
       if (themeColorMeta) {
@@ -257,11 +246,7 @@ const breadcrumbSchema = {
       } catch (e) {}
     </script>
   </head>
-  <body class="loading">
+  <body>
     <slot />
-    <script is:inline>
-      document.body.classList.remove('loading');
-      document.body.classList.add('loaded');
-    </script>
   </body>
 </html>

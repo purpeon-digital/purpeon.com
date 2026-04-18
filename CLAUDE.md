@@ -38,7 +38,7 @@ bun test:run -t "pattern"                 # Filter by test name
 
 ### SSR → client hydration handoff
 
-`Layout.astro` emits an inline `<script is:inline>` that sets `window.__INITIAL_LOCALE__` and `window.__INITIAL_THEME__` before any Vue island loads. This is the source of truth that `useI18n()` and `ThemeToggle.vue` read on mount. An anti-flicker pattern uses `body.loading` → `body.loaded` plus `data-theme-resolved` on `<html>` to hide content until the theme/locale are synced. Do not remove the inline script or the loading class without replacing this mechanism.
+`Layout.astro` emits an inline `<script is:inline>` that sets `window.__INITIAL_LOCALE__` and `window.__INITIAL_THEME__` before any Vue island loads. This is the source of truth that `useI18n()` and `ThemeToggle.vue` read on mount. The script also writes `data-theme` onto `<html>` in the head before the body parses, so themed CSS variables apply on first paint with no FOUC.
 
 ### Styling layers
 
