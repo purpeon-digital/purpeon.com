@@ -31,9 +31,22 @@ function handleKeydown(e: KeyboardEvent) {
   }
 }
 
-onMounted(() => window.addEventListener('keydown', handleKeydown));
+let themeObserver: MutationObserver | null = null;
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeydown);
+  themeObserver = new MutationObserver(() => {
+    if (mobileMenuOpen.value) closeMobileMenu();
+  });
+  themeObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  });
+});
+
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleKeydown);
+  themeObserver?.disconnect();
   document.body.style.overflow = '';
 });
 
@@ -72,8 +85,18 @@ function scrollToSection(e: Event, href: string) {
   <header class="header-bar">
     <nav class="max-w-[1400px] mx-auto px-8 flex justify-between items-center w-full h-full max-md:px-4 max-md:h-auto max-md:min-h-[52px]">
       <a href="#" class="logo" @click.prevent="scrollToSection($event, '#')">
-        <span class="logo-icon">
-          <img src="/bell_logo.svg" alt="Purpeon Digital" class="h-full w-full" />
+        <span class="logo-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23.29 32.29" fill="#c040c0" class="h-full w-full">
+            <g transform="translate(-113.21 -142)">
+              <path d="m114.89 142 .7 1.1h1c.8 0 1.2 0 2.4.8l2.39 1q1 0 .5.5-.81.9-3 .7-1.3-.1-1 .2l1.8.6 2.3.8q1.7.8 4.99 5.2c2.3 3 4.19 4.7 6.89 5.5q1.8.6 2.4 2.2.69 1.7-.6 4c-.6 1.3-.6 1.5-.6 4.2 0 2.4-.1 2.9-.5 3.6a3 3 0 0 1-1.9 1.8c-1.3.4-4-.5-5.7-1.9-.6-.4-1-.5-2.19-.5q-4.1 0-4-3.8c0-3-.5-4.7-2.99-9.1-2.3-4.3-2.7-6.1-2.2-8.8l.2-1.9v-.9l-.4 1.2c-.6 2-2.59 4-2.09 2v-2.4q0-2.7.7-3.6c.2-.3.2-.5-.4-1.6m19.07 29.7q1.2-.81 1-4.5l-.1-2.3.7-1.3q1.8-3.6-.4-4.5c-1-.4-3.4-.4-4.7 0-2.6.8-4.99 2.8-6.19 5-.7 1.5-1 3.5-.6 4.3q.7 1.1 2.8 1c1 0 1.2 0 2.7 1l1.7 1 1 .3c1.39.4 1.59.4 2.09 0"/>
+              <circle cx="124.71" cy="167.13" r="1.1"/>
+              <circle cx="128.21" cy="163.23" r="1.1"/>
+              <circle cx="128.51" cy="166.93" r=".6"/>
+              <circle cx="131.8" cy="162.03" r=".6"/>
+              <ellipse cx="131.61" cy="165.33" rx=".7" ry=".8"/>
+              <circle cx="130.61" cy="169.93" r=".8"/>
+            </g>
+          </svg>
         </span>
         <span class="logo-text">Purpeon <span class="font-normal opacity-85">Digital</span></span>
       </a>
@@ -117,10 +140,10 @@ function scrollToSection(e: Event, href: string) {
           </li>
         </ul>
         <div class="nav-controls">
-          <div class="nav-control" @click="closeMobileMenu">
+          <div class="nav-control">
             <LanguagePicker :locale="props.locale" />
           </div>
-          <div class="nav-control" @click="closeMobileMenu">
+          <div class="nav-control">
             <ThemeToggle />
           </div>
         </div>
@@ -188,6 +211,7 @@ function scrollToSection(e: Event, href: string) {
   width: 38px;
   height: 38px;
   transition: all 0.3s ease;
+  filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.35));
 }
 
 @media (max-width: 768px) {
@@ -223,6 +247,9 @@ function scrollToSection(e: Event, href: string) {
 }
 
 .nav-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
   transition: all 0.2s ease;
@@ -232,11 +259,51 @@ function scrollToSection(e: Event, href: string) {
   font-size: 0.925rem;
   font-weight: 500;
   letter-spacing: 0.01em;
+  line-height: 1;
 }
 
 .nav-links a:hover {
   color: white;
   background: rgba(255, 255, 255, 0.12);
+}
+
+/* Desktop: chevron is a mobile affordance, hide it */
+@media (min-width: 769px) {
+  .nav-link-chevron {
+    display: none;
+  }
+}
+
+/* Desktop: inline icon next to label, no chip styling */
+.nav-link-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  font-size: 0.95em;
+}
+
+.nav-link-icon iconify-icon {
+  width: 1em;
+  height: 1em;
+  display: block;
+}
+
+/* Desktop: align LanguagePicker / ThemeToggle icons with header text */
+.nav-controls :deep(button) {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.nav-controls :deep(iconify-icon) {
+  font-size: 1.35rem;
+  display: block;
+  line-height: 1;
+}
+
+.nav-controls :deep(.theme-toggle__classic) {
+  display: block;
 }
 
 .nav-links a::after {
@@ -526,7 +593,7 @@ function scrollToSection(e: Event, href: string) {
     align-items: center;
     justify-content: center;
     min-height: 54px;
-    padding: 0.55rem 0.85rem;
+    padding: 0;
     border-radius: 14px;
     background: linear-gradient(
       135deg,
@@ -592,12 +659,21 @@ function scrollToSection(e: Event, href: string) {
     transform: scale(0.97);
   }
 
-  /* Enlarge the controls inside */
-  .nav-control :deep(button) {
-    padding: 0;
+  /* LanguagePicker wrapper: stretch it to fill the card */
+  .nav-control :deep(.relative) {
+    align-self: stretch;
+    width: 100%;
+    display: flex;
   }
 
-  .nav-control :deep(.grid) {
+  /* Button fills the entire card — no dead-zone clicks */
+  .nav-control :deep(button) {
+    align-self: stretch;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.55rem 0.85rem;
     gap: 0.5rem;
   }
 
@@ -608,11 +684,6 @@ function scrollToSection(e: Event, href: string) {
   .nav-control :deep(.theme-toggle__classic) {
     width: 1.5rem;
     height: 1.5rem;
-  }
-
-  /* Subtle pulse ring on the active language flag */
-  .nav-control :deep(button[aria-pressed]) {
-    position: relative;
   }
 
   /* Hide drawer scrollbar */

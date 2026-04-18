@@ -41,7 +41,7 @@ const features = computed(() => {
         </div>
         <p class="text-[clamp(1rem,2vw,1.2rem)] leading-relaxed mb-4 text-[var(--hero-text-color)]" :style="{ opacity: 'var(--hero-text-opacity)' }">{{ t('hero.subtitle') }}</p>
         <p class="hero-tagline text-[clamp(1.1rem,2vw,1.3rem)] mb-8 text-[var(--hero-text-color)]" :style="{ opacity: 'var(--hero-text-opacity)' }">{{ t('hero.tagline') }}</p>
-        <div class="hero-buttons flex gap-4 flex-wrap">
+        <div class="hero-buttons flex gap-4 flex-wrap mb-3">
           <SectionButton variant="primary" href="#services">
             {{ t('hero.cta.services') }}
           </SectionButton>
@@ -75,8 +75,8 @@ const features = computed(() => {
 .hero-mobile-logo {
   width: 100px;
   height: auto;
-  filter: brightness(0.9) contrast(1.1);
-  mix-blend-mode: lighten;
+  filter: brightness(1) contrast(1.15);
+  mix-blend-mode: normal;
   opacity: 0;
   animation: mobileLogoReveal 0.8s ease-out 0.2s forwards;
 }
@@ -87,9 +87,9 @@ const features = computed(() => {
   }
 }
 
-:global([data-theme="light"]) .hero-mobile-logo {
-  filter: brightness(1) contrast(1.15);
-  mix-blend-mode: normal;
+:global([data-theme="dark"]) .hero-mobile-logo {
+  filter: brightness(0.9) contrast(1.1);
+  mix-blend-mode: lighten;
 }
 
 @keyframes mobileLogoReveal {

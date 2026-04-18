@@ -82,8 +82,8 @@ const containerClasses = computed(() => [
 }
 /* Filter presets — complex multi-value filters + blend modes */
 .section-image--hero img {
-  filter: brightness(0.9) contrast(1.1);
-  mix-blend-mode: lighten;
+  filter: brightness(1) contrast(1.15);
+  mix-blend-mode: normal;
 }
 
 .section-image--services img {
@@ -91,29 +91,29 @@ const containerClasses = computed(() => [
 }
 
 .section-image--about img {
-  filter: brightness(0.85) contrast(1.15) saturate(1.1);
-  mix-blend-mode: lighten;
-}
-
-.section-image--contact img {
-  filter: brightness(0.9) contrast(1.1) hue-rotate(-10deg);
-  mix-blend-mode: lighten;
-}
-
-/* Light theme filter overrides */
-:global([data-theme="light"]) .section-image--hero img {
-  filter: brightness(1) contrast(1.15);
-  mix-blend-mode: normal;
-}
-
-:global([data-theme="light"]) .section-image--about img {
   filter: brightness(1) contrast(1.2) saturate(1.1);
   mix-blend-mode: normal;
 }
 
-:global([data-theme="light"]) .section-image--contact img {
+.section-image--contact img {
   filter: brightness(1) contrast(1.1);
   mix-blend-mode: normal;
+}
+
+/* Dark theme blend mode overrides */
+:global([data-theme="dark"]) .section-image--hero img {
+  filter: brightness(0.9) contrast(1.1);
+  mix-blend-mode: lighten;
+}
+
+:global([data-theme="dark"]) .section-image--about img {
+  filter: brightness(0.85) contrast(1.15) saturate(1.1);
+  mix-blend-mode: lighten;
+}
+
+:global([data-theme="dark"]) .section-image--contact img {
+  filter: brightness(0.9) contrast(1.1) hue-rotate(-10deg);
+  mix-blend-mode: lighten;
 }
 
 /* Scroll-reveal animation */
