@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, type Component } from 'vue';
 import { useI18n, type Locale } from '@/composables/useI18n';
+import IconPaperPlane from '~icons/fa6-solid/paper-plane';
+import IconPhone from '~icons/fa6-solid/phone';
+import IconNewspaper from '~icons/fa6-solid/newspaper';
+import IconMapLocation from '~icons/fa7-solid/map-location-dot';
 
 type ContactMethodType = 'email' | 'phone' | 'location' | 'org';
 
 interface ContactMethodConfig {
   type: ContactMethodType;
-  icon: string;
+  icon: Component;
   labelKey: string;
   value: string;
   action: 'link' | 'map' | 'external' | 'none';
@@ -16,7 +20,7 @@ interface ContactMethodConfig {
 
 interface ContactMethodDisplay {
   type: ContactMethodType;
-  icon: string;
+  icon: Component;
   label: string;
   value: string;
   action: 'link' | 'map' | 'external' | 'none';
@@ -38,7 +42,7 @@ const { t, locale } = useI18n(props.locale);
 const methodConfigs: ContactMethodConfig[] = [
   {
     type: 'email',
-    icon: 'fa6-solid:paper-plane',
+    icon: IconPaperPlane,
     labelKey: 'contact.email',
     value: 'kontakt@purpeon.com',
     action: 'link',
@@ -46,7 +50,7 @@ const methodConfigs: ContactMethodConfig[] = [
   },
   {
     type: 'phone',
-    icon: 'fa6-solid:phone',
+    icon: IconPhone,
     labelKey: 'contact.phone',
     value: '+47 959 92 555',
     action: 'link',
@@ -54,7 +58,7 @@ const methodConfigs: ContactMethodConfig[] = [
   },
   {
     type: 'location',
-    icon: 'fa7-solid:map-location-dot',
+    icon: IconMapLocation,
     labelKey: 'contact.location',
     value: 'PEAK Sunnfjord, Hafstadvegen 23-25, 6800 Førde',
     action: 'map',
@@ -62,7 +66,7 @@ const methodConfigs: ContactMethodConfig[] = [
   },
   {
     type: 'org',
-    icon: 'fa6-solid:newspaper',
+    icon: IconNewspaper,
     labelKey: 'contact.orgNumber',
     value: '836 295 722',
     action: 'external',
@@ -122,7 +126,7 @@ const handleClick = (method: ContactMethodDisplay, event: MouseEvent) => {
       @click="handleClick(method, $event)"
     >
       <span class="text-[1.8rem] shrink-0">
-        <iconify-icon :icon="method.icon" width="24" height="24" class="text-contact-icon"></iconify-icon>
+        <component :is="method.icon" width="24" height="24" class="text-contact-icon" />
       </span>
       <div>
         <h3>{{ method.label }}</h3>

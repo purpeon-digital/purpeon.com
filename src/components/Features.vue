@@ -1,4 +1,38 @@
 <script setup lang="ts">
+import type { Component } from 'vue';
+// Hero icons
+import IconMapLocation from '~icons/fa7-solid/map-location-dot';
+import IconWrench from '~icons/fa7-solid/wrench';
+import IconLock from '~icons/fa7-solid/lock';
+import IconCheckCircle from '~icons/fa7-solid/check-circle';
+// Services icons
+import IconCloud from '~icons/fa7-solid/cloud';
+import IconRobot from '~icons/fa7-solid/robot';
+import IconCog from '~icons/fa7-solid/cog';
+import IconChartBar from '~icons/fa7-solid/chart-bar';
+// About icons
+import IconHandshakeAlt from '~icons/fa7-solid/handshake-alt';
+import IconFaceGrinStars from '~icons/fa7-solid/face-grin-stars';
+import IconLightbulb from '~icons/fa7-solid/lightbulb';
+import IconBookOpenReader from '~icons/fa7-solid/book-open-reader';
+
+// Resolve i18n icon-name strings to bundled Vue components at render time.
+// Adding a new icon here means importing it above + adding to this map.
+const ICONS: Record<string, Component> = {
+  'fa7-solid:map-location-dot': IconMapLocation,
+  'fa7-solid:wrench': IconWrench,
+  'fa7-solid:lock': IconLock,
+  'fa7-solid:check-circle': IconCheckCircle,
+  'fa7-solid:cloud': IconCloud,
+  'fa7-solid:robot': IconRobot,
+  'fa7-solid:cog': IconCog,
+  'fa7-solid:chart-bar': IconChartBar,
+  'fa7-solid:handshake-alt': IconHandshakeAlt,
+  'fa7-solid:face-grin-stars': IconFaceGrinStars,
+  'fa7-solid:lightbulb': IconLightbulb,
+  'fa7-solid:book-open-reader': IconBookOpenReader,
+};
+
 interface Feature {
   icon: string;
   title: string;
@@ -22,7 +56,7 @@ const props = defineProps<{
     <div v-for="feature in props.features" :key="feature.title" class="feature-card">
       <div class="feature-header flex items-center gap-4 mb-4 max-sm:gap-2.5 max-sm:mb-1.5">
         <span class="feature-icon-wrapper">
-          <iconify-icon :icon="feature.icon" style="width: 28px; height: 28px; font-size: 28px;"></iconify-icon>
+          <component :is="ICONS[feature.icon]" style="width: 28px; height: 28px; font-size: 28px;" />
         </span>
         <h2 class="feature-title">{{ feature.title }}</h2>
       </div>
@@ -62,7 +96,7 @@ const props = defineProps<{
   flex-shrink: 0;
 }
 
-.feature-icon-wrapper iconify-icon {
+.feature-icon-wrapper svg {
   display: block;
   width: 28px;
   height: 28px;
@@ -78,7 +112,7 @@ const props = defineProps<{
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.feature-card:hover .feature-icon-wrapper iconify-icon {
+.feature-card:hover .feature-icon-wrapper svg {
   transform: scale(1.1);
 }
 
@@ -139,7 +173,7 @@ const props = defineProps<{
   border-color: rgba(107, 70, 193, 0.5);
 }
 
-:global([data-theme="light"]) .feature-icon-wrapper iconify-icon {
+:global([data-theme="light"]) .feature-icon-wrapper svg {
   color: var(--color-accent-primary);
 }
 
@@ -162,7 +196,7 @@ const props = defineProps<{
     border-radius: 10px;
   }
 
-  .feature-icon-wrapper iconify-icon {
+  .feature-icon-wrapper svg {
     width: 22px;
     height: 22px;
     font-size: 22px;

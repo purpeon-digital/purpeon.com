@@ -1,13 +1,4 @@
-import { config } from '@vue/test-utils';
 import { vi } from 'vitest';
-
-// Mock iconify-icon web component
-config.global.stubs = {
-  'iconify-icon': {
-    template: '<span class="iconify-icon-stub"><slot /></span>',
-    props: ['icon', 'width', 'height', 'style']
-  }
-};
 
 // Mock IntersectionObserver for scroll animations
 const mockIntersectionObserver = vi.fn(function(callback) {

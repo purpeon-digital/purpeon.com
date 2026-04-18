@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useI18n, type Locale } from '@/composables/useI18n';
+import IconLangNo from '~icons/circle-flags/lang-no';
+import IconLangEn from '~icons/circle-flags/lang-en';
 
 // Accept locale prop from SSR - this is the source of truth for display
 const props = defineProps<{
@@ -26,13 +28,13 @@ function toggleLanguage() {
         class="flex items-center justify-center relative z-1 leading-none transition-all duration-200"
         :class="props.locale === 'no' ? 'opacity-100 grayscale-0' : 'opacity-50 grayscale-[0.95]'"
       >
-        <iconify-icon icon="circle-flags:lang-no" />
+        <IconLangNo />
       </span>
       <span
         class="flex items-center justify-center relative z-1 leading-none transition-all duration-200"
         :class="props.locale === 'en' ? 'opacity-100 grayscale-0' : 'opacity-50 grayscale-[0.95]'"
       >
-        <iconify-icon icon="circle-flags:lang-en" />
+        <IconLangEn />
       </span>
     </button>
   </div>

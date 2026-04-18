@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import vue from '@astrojs/vue';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import Icons from 'unplugin-icons/vite';
 
 export default defineConfig({
   output: 'static',
@@ -12,17 +13,16 @@ export default defineConfig({
     inlineStylesheets: 'always'
   },
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [
+      tailwindcss(),
+      // Bundle iconify icons as Vue components at build time so the runtime
+      // never hits api.iconify.design. Per-icon tree-shaking via virtual
+      // imports like `import IconCloud from '~icons/fa7-solid/cloud'`.
+      Icons({ compiler: 'vue3' })
+    ]
   },
   integrations: [
-    vue({
-      template: {
-        compilerOptions: {
-          // Treat iconify web component as custom element to avoid Vue resolution warnings
-          isCustomElement: (tag) => tag === 'iconify-icon'
-        }
-      }
-    }),
+    vue(),
     sitemap({
       i18n: {
         defaultLocale: 'no',

@@ -51,12 +51,12 @@ bun test:run -t "pattern"                 # Filter by test name
 ### Testing
 
 - Specs live in `src/components/__tests__/*.spec.ts`; global setup is `src/test/setup.ts`.
-- Setup mocks `IntersectionObserver` to fire immediately (scroll-triggered animations run synchronously in tests) and stubs `iconify-icon` — add new globals/web-component stubs there, not in individual specs.
+- Setup mocks `IntersectionObserver` to fire immediately (scroll-triggered animations run synchronously in tests). Add new globals there, not in individual specs.
 - `__INITIAL_LOCALE__`/`__INITIAL_THEME__` are pre-set on `window` in the setup file; tests can mutate them.
 
-### Iconify custom element
+### Icons
 
-`iconify-icon` is a web component, registered as a Vue custom element in **two places** that must stay in sync: `astro.config.mjs` (`vue.template.compilerOptions.isCustomElement`) and `vitest.config.ts`. If you switch icon libraries, update both.
+Icons are bundled at build time via `unplugin-icons` (configured in **both** `astro.config.mjs` and `vitest.config.ts` — keep in sync). Import per-icon Vue components: `import IconCloud from '~icons/fa7-solid/cloud'`. For data-driven icon names from i18n JSON, see the `ICONS` lookup map in `src/components/Features.vue` — adding a new icon there requires importing it and adding to the map. Available collections: `fa7-solid`, `fa6-solid`, `circle-flags` (`@iconify-json/*` devDependencies). Zero runtime requests to `api.iconify.design`.
 
 ### Deployment
 

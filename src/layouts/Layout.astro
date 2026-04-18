@@ -210,8 +210,6 @@ const breadcrumbSchema = {
     <link rel="manifest" href="/favicon/site.webmanifest" />
 
     <!-- Preconnect -->
-    <link rel="preconnect" href="https://api.iconify.design" />
-    <link rel="dns-prefetch" href="https://api.iconify.design" />
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
@@ -258,9 +256,6 @@ const breadcrumbSchema = {
           localStorage.setItem('locale', locale);
         }
       } catch (e) {}
-    </script>
-    <script>
-      import 'iconify-icon';
     </script>
   </head>
   <body class="loading">

@@ -3,6 +3,10 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useI18n, type Locale } from '@/composables/useI18n';
 import LanguagePicker from './LanguagePicker.vue';
 import ThemeToggle from './ThemeToggle.vue';
+import IconBriefcase from '~icons/fa7-solid/briefcase';
+import IconCircleInfo from '~icons/fa7-solid/circle-info';
+import IconPaperPlane from '~icons/fa7-solid/paper-plane';
+import IconChevronRight from '~icons/fa7-solid/chevron-right';
 
 const props = defineProps<{
   locale: Locale;
@@ -128,23 +132,23 @@ function scrollToSection(e: Event, href: string) {
         <ul class="nav-links">
           <li>
             <a href="#services" @click="(e) => scrollToSection(e, '#services')">
-              <span class="nav-link-icon"><iconify-icon icon="fa7-solid:briefcase"></iconify-icon></span>
+              <span class="nav-link-icon"><IconBriefcase /></span>
               <span class="nav-link-label">{{ t('nav.services') }}</span>
-              <iconify-icon class="nav-link-chevron" icon="fa7-solid:chevron-right"></iconify-icon>
+              <IconChevronRight class="nav-link-chevron" />
             </a>
           </li>
           <li>
             <a href="#about" @click="(e) => scrollToSection(e, '#about')">
-              <span class="nav-link-icon"><iconify-icon icon="fa7-solid:circle-info"></iconify-icon></span>
+              <span class="nav-link-icon"><IconCircleInfo /></span>
               <span class="nav-link-label">{{ t('nav.about') }}</span>
-              <iconify-icon class="nav-link-chevron" icon="fa7-solid:chevron-right"></iconify-icon>
+              <IconChevronRight class="nav-link-chevron" />
             </a>
           </li>
           <li>
             <a href="#contact" @click="(e) => scrollToSection(e, '#contact')">
-              <span class="nav-link-icon"><iconify-icon icon="fa7-solid:paper-plane"></iconify-icon></span>
+              <span class="nav-link-icon"><IconPaperPlane /></span>
               <span class="nav-link-label">{{ t('nav.contact') }}</span>
-              <iconify-icon class="nav-link-chevron" icon="fa7-solid:chevron-right"></iconify-icon>
+              <IconChevronRight class="nav-link-chevron" />
             </a>
           </li>
         </ul>
@@ -292,7 +296,7 @@ function scrollToSection(e: Event, href: string) {
   font-size: 0.95em;
 }
 
-.nav-link-icon iconify-icon {
+.nav-link-icon svg {
   width: 1em;
   height: 1em;
   display: block;
@@ -305,7 +309,9 @@ function scrollToSection(e: Event, href: string) {
   line-height: 1;
 }
 
-.nav-controls :deep(iconify-icon) {
+/* Sized via parent button > span > svg to avoid matching ThemeToggle's
+   own SVG (which carries its own `.theme-toggle__classic` styles). */
+.nav-controls :deep(button > span > svg) {
   font-size: 1.35rem;
   display: block;
   line-height: 1;
@@ -553,7 +559,7 @@ function scrollToSection(e: Event, href: string) {
     font-size: 1rem;
   }
 
-  .nav-link-icon iconify-icon {
+  .nav-link-icon svg {
     width: 1em;
     height: 1em;
   }
@@ -686,7 +692,7 @@ function scrollToSection(e: Event, href: string) {
     gap: 0.5rem;
   }
 
-  .nav-control :deep(iconify-icon) {
+  .nav-control :deep(button > span > svg) {
     font-size: 1.5rem;
   }
 

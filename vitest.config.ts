@@ -1,16 +1,12 @@
 import { defineConfig } from 'vitest/config';
 import vue from '@vitejs/plugin-vue';
+import Icons from 'unplugin-icons/vite';
 import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig({
   plugins: [
-    vue({
-      template: {
-        compilerOptions: {
-          isCustomElement: (tag) => tag === 'iconify-icon'
-        }
-      }
-    })
+    vue(),
+    Icons({ compiler: 'vue3' })
   ],
   test: {
     environment: 'jsdom',

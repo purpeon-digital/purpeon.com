@@ -15,16 +15,20 @@
     "@astrojs/vue": "^6.0.1",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.6",
-    "iconify-icon": "^3.0.2",
     "tailwindcss": "^4.2.2",
     "vue": "^3.5.32"
   },
   "devDependencies": {
+    "@iconify-json/circle-flags": "^1.2.10",
+    "@iconify-json/fa6-solid": "^1.2.4",
+    "@iconify-json/fa7-solid": "^1.2.4",
+    "@iconify/utils": "^3.1.0",
     "@vitejs/plugin-vue": "^6.0.6",
     "@vue/test-utils": "^2.4.6",
     "happy-dom": "^20.9.0",
     "jsdom": "^29.0.2",
     "pathe": "^2.0.3",
+    "unplugin-icons": "^23.0.1",
     "vitest": "4.1.4"
   }
 }
