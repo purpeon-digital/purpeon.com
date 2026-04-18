@@ -5,6 +5,12 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   output: 'static',
+  build: {
+    // Inline all CSS into the HTML so the render-blocking external stylesheet
+    // disappears. Trades ~10KB extra gzipped HTML for one fewer round-trip
+    // on the critical path — Lighthouse mobile LCP improves significantly.
+    inlineStylesheets: 'always'
+  },
   vite: {
     plugins: [tailwindcss()]
   },
