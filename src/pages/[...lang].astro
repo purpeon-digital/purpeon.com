@@ -24,9 +24,9 @@ const locale = lang || 'no';
   <Header client:load locale={locale} />
   <main>
     <Hero client:load locale={locale} />
-    <Services client:load locale={locale} />
-    <About client:load locale={locale} />
-    <Contact client:load locale={locale} />
+    <Services client:visible locale={locale} />
+    <About client:visible locale={locale} />
+    <Contact client:visible locale={locale} />
   </main>
   <NoCookiesToast client:idle locale={locale} />
 </Layout>
