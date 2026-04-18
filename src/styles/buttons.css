@@ -1,0 +1,150 @@
+/* ============================================================
+   SECTION BUTTON STYLES
+   Used by SectionButton.vue (.btn + .btn-primary | .btn-secondary).
+   Lives globally (not in scoped Vue styles) because:
+     1. Theme overrides via [data-theme="light"] match the project
+        pattern in streaks.css.
+     2. Vue's :global() inside scoped styles silently dropped these
+        rules during build, so theme overrides never reached the DOM.
+   ============================================================ */
+
+.btn {
+  position: relative;
+  border-radius: 14px;
+  letter-spacing: 0.005em;
+  transition:
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms ease,
+    background 260ms ease,
+    border-color 260ms ease,
+    filter 260ms ease;
+}
+
+.btn:focus-visible {
+  outline: 2px solid rgba(236, 72, 153, 0.7);
+  outline-offset: 3px;
+}
+
+/* ---------- Primary: solid violet CTA with pink accent glow ---------- */
+.btn-primary {
+  color: #fff;
+  background:
+    radial-gradient(130% 110% at 0% 0%, rgba(236, 72, 153, 0.28), transparent 55%),
+    linear-gradient(135deg, #8b5cf6 0%, #6b46c1 60%, #553c9a 100%);
+  border: 1px solid rgba(167, 139, 250, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 8px 24px rgba(124, 58, 237, 0.4),
+    0 2px 6px rgba(76, 29, 149, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  border-color: rgba(236, 72, 153, 0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 14px 36px rgba(124, 58, 237, 0.52),
+    0 2px 6px rgba(236, 72, 153, 0.22);
+}
+
+.btn-primary:active {
+  transform: translateY(-1px);
+  filter: brightness(0.98);
+}
+
+/* ---------- Secondary: translucent violet glass ---------- */
+.btn-secondary {
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    rgba(167, 139, 250, 0.18) 0%,
+    rgba(124, 58, 237, 0.08) 100%
+  );
+  border: 1px solid rgba(167, 139, 250, 0.34);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 4px 14px rgba(124, 58, 237, 0.22);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(
+    135deg,
+    rgba(236, 72, 153, 0.22) 0%,
+    rgba(124, 58, 237, 0.16) 100%
+  );
+  border-color: rgba(236, 72, 153, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 10px 28px rgba(124, 58, 237, 0.34);
+}
+
+.btn-secondary:active {
+  transform: translateY(-1px);
+}
+
+/* ---------- Light theme overrides ---------- */
+[data-theme="light"] .btn-primary {
+  background:
+    radial-gradient(130% 110% at 0% 0%, rgba(236, 72, 153, 0.22), transparent 55%),
+    linear-gradient(135deg, #7c3aed 0%, #6b46c1 60%, #553c9a 100%);
+  border-color: rgba(107, 70, 193, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 8px 24px rgba(107, 70, 193, 0.38),
+    0 2px 6px rgba(107, 70, 193, 0.22);
+}
+
+[data-theme="light"] .btn-primary:hover {
+  border-color: rgba(236, 72, 153, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    0 14px 36px rgba(107, 70, 193, 0.5),
+    0 2px 6px rgba(236, 72, 153, 0.2);
+}
+
+/* Light hero is pale lavender (#f3e5ff → #e8d5ff) — secondary needs
+   a white-dominant fill, strong violet border, and dark text. */
+[data-theme="light"] .btn-secondary {
+  color: var(--color-text-primary);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(167, 139, 250, 0.28) 100%
+  );
+  border: 1px solid rgba(107, 70, 193, 0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 4px 14px rgba(107, 70, 193, 0.22),
+    0 1px 3px rgba(107, 70, 193, 0.14);
+}
+
+[data-theme="light"] .btn-secondary:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(236, 72, 153, 0.24) 100%
+  );
+  border-color: rgba(107, 70, 193, 0.85);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 10px 28px rgba(107, 70, 193, 0.32);
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 480px) {
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn:hover,
+  .btn:active {
+    transform: none;
+    transition: background 200ms ease, border-color 200ms ease, filter 200ms ease;
+  }
+}

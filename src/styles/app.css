@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "./streaks.css";
 @import "./animations.css";
+@import "./buttons.css";
 
 /* ============================================================
    TAILWIND DARK/LIGHT MODE VARIANTS
