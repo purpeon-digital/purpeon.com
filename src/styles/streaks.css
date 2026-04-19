@@ -1,152 +1,252 @@
 /* ============================================================
-   STREAK GRADIENT BACKGROUNDS
-   Per-section decorative backgrounds with light/dark theme variants.
-   Each section has unique angles and CSS variable-driven colors.
+   STREAK GRADIENT BACKGROUNDS + SCROLL-LINKED PARALLAX
+   Each section has a base gradient on itself and two streak
+   patterns painted onto ::before / ::after. The pseudos drift
+   at different speeds via view-timeline — transform only, no
+   filters, so the compositor keeps everything on GPU layers.
    ============================================================ */
 
-/* Hero — 120deg streaks */
+.streak-hero,
+.streak-services,
+.streak-about,
+.streak-contact {
+  position: relative;
+  isolation: isolate;
+  view-timeline-axis: block;
+}
+
+/* Content sits above both streak layers */
+.streak-hero > *,
+.streak-services > *,
+.streak-about > *,
+.streak-contact > * {
+  position: relative;
+  z-index: 1;
+}
+
+.streak-hero::before, .streak-hero::after,
+.streak-services::before, .streak-services::after,
+.streak-about::before, .streak-about::after,
+.streak-contact::before, .streak-contact::after {
+  content: '';
+  position: absolute;
+  inset: -20% 0;
+  z-index: 0;
+  pointer-events: none;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-range: cover 0% cover 100%;
+}
+
+.streak-hero::before,
+.streak-services::before,
+.streak-about::before,
+.streak-contact::before {
+  animation-name: streak-front;
+}
+
+.streak-hero::after,
+.streak-services::after,
+.streak-about::after,
+.streak-contact::after {
+  animation-name: streak-back;
+}
+
+@keyframes streak-front {
+  from { transform: translate3d(0, -15%, 0); }
+  to   { transform: translate3d(0,  15%, 0); }
+}
+
+@keyframes streak-back {
+  from { transform: translate3d(0, -5%, 0); }
+  to   { transform: translate3d(0,  5%, 0); }
+}
+
+/* ------- Hero — 120deg ------- */
 .streak-hero {
-  background:
-    repeating-linear-gradient(
-      120deg,
-      transparent 0px, transparent 80px,
-      var(--hero-streak-1) 80px, var(--hero-streak-2) 84px,
-      var(--hero-streak-3) 88px, transparent 88px, transparent 200px
-    ),
-    repeating-linear-gradient(
-      120deg,
-      transparent 0px, transparent 140px,
-      var(--hero-streak-4) 140px, var(--hero-streak-5) 143px,
-      transparent 143px, transparent 280px
-    ),
-    linear-gradient(
-      135deg,
-      var(--hero-grad-1) 0%, var(--hero-grad-2) 35%,
-      var(--hero-grad-3) 60%, var(--hero-grad-4) 100%
-    );
+  view-timeline-name: --hero-view;
+  background: linear-gradient(
+    135deg,
+    var(--hero-grad-1) 0%, var(--hero-grad-2) 35%,
+    var(--hero-grad-3) 60%, var(--hero-grad-4) 100%
+  );
+}
+.streak-hero::before {
+  animation-timeline: --hero-view;
+  background: repeating-linear-gradient(
+    120deg,
+    transparent 0 80px,
+    var(--hero-streak-1) 80px, var(--hero-streak-2) 84px,
+    var(--hero-streak-3) 88px, transparent 88px 200px
+  );
+}
+.streak-hero::after {
+  animation-timeline: --hero-view;
+  background: repeating-linear-gradient(
+    120deg,
+    transparent 0 140px,
+    var(--hero-streak-4) 140px, var(--hero-streak-5) 143px,
+    transparent 143px 280px
+  );
 }
 
 [data-theme="light"] .streak-hero {
-  background:
-    repeating-linear-gradient(
-      120deg,
-      transparent 0px, transparent 80px,
-      rgba(192, 132, 250, 0.1) 80px, rgba(196, 139, 253, 0.12) 84px,
-      rgba(199, 146, 255, 0.1) 88px, transparent 88px, transparent 200px
-    ),
-    repeating-linear-gradient(
-      120deg,
-      transparent 0px, transparent 140px,
-      rgba(168, 85, 247, 0.08) 140px, rgba(168, 85, 247, 0.1) 143px,
-      transparent 143px, transparent 280px
-    ),
-    linear-gradient(135deg, #f3e5ff 0%, #e8d5ff 100%);
+  background: linear-gradient(135deg, #f3e5ff 0%, #e8d5ff 100%);
+}
+[data-theme="light"] .streak-hero::before {
+  background: repeating-linear-gradient(
+    120deg,
+    transparent 0 80px,
+    rgba(192, 132, 250, 0.1) 80px, rgba(196, 139, 253, 0.12) 84px,
+    rgba(199, 146, 255, 0.1) 88px, transparent 88px 200px
+  );
+}
+[data-theme="light"] .streak-hero::after {
+  background: repeating-linear-gradient(
+    120deg,
+    transparent 0 140px,
+    rgba(168, 85, 247, 0.08) 140px, rgba(168, 85, 247, 0.1) 143px,
+    transparent 143px 280px
+  );
 }
 
-/* Services — 30deg streaks */
+/* ------- Services — 30deg ------- */
 .streak-services {
-  background:
-    repeating-linear-gradient(
-      30deg,
-      transparent 0px, transparent 80px,
-      var(--services-streak-1) 80px, var(--services-streak-2) 84px,
-      var(--services-streak-3) 88px, transparent 88px, transparent 200px
-    ),
-    repeating-linear-gradient(
-      30deg,
-      transparent 0px, transparent 140px,
-      var(--services-streak-4) 140px, var(--services-streak-5) 143px,
-      transparent 143px, transparent 280px
-    ),
-    linear-gradient(
-      135deg,
-      var(--services-grad-1) 0%, var(--services-grad-2) 35%,
-      var(--services-grad-3) 60%, var(--services-grad-4) 100%
-    );
+  view-timeline-name: --services-view;
+  background: linear-gradient(
+    135deg,
+    var(--services-grad-1) 0%, var(--services-grad-2) 35%,
+    var(--services-grad-3) 60%, var(--services-grad-4) 100%
+  );
+}
+.streak-services::before {
+  animation-timeline: --services-view;
+  background: repeating-linear-gradient(
+    30deg,
+    transparent 0 80px,
+    var(--services-streak-1) 80px, var(--services-streak-2) 84px,
+    var(--services-streak-3) 88px, transparent 88px 200px
+  );
+}
+.streak-services::after {
+  animation-timeline: --services-view;
+  background: repeating-linear-gradient(
+    30deg,
+    transparent 0 140px,
+    var(--services-streak-4) 140px, var(--services-streak-5) 143px,
+    transparent 143px 280px
+  );
 }
 
-/* About — -45deg streaks */
+/* ------- About — -45deg ------- */
 .streak-about {
-  background:
-    repeating-linear-gradient(
-      -45deg,
-      transparent 0px, transparent 100px,
-      var(--about-streak-1) 100px, var(--about-streak-2) 104px,
-      var(--about-streak-3) 108px, transparent 108px, transparent 250px
-    ),
-    repeating-linear-gradient(
-      -45deg,
-      transparent 0px, transparent 180px,
-      var(--about-streak-4) 180px, var(--about-streak-5) 183px,
-      transparent 183px, transparent 350px
-    ),
-    linear-gradient(
-      160deg,
-      var(--about-grad-1) 0%, var(--about-grad-2) 35%,
-      var(--about-grad-3) 65%, var(--about-grad-4) 100%
-    );
+  view-timeline-name: --about-view;
+  background: linear-gradient(
+    160deg,
+    var(--about-grad-1) 0%, var(--about-grad-2) 35%,
+    var(--about-grad-3) 65%, var(--about-grad-4) 100%
+  );
+}
+.streak-about::before {
+  animation-timeline: --about-view;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent 0 100px,
+    var(--about-streak-1) 100px, var(--about-streak-2) 104px,
+    var(--about-streak-3) 108px, transparent 108px 250px
+  );
+}
+.streak-about::after {
+  animation-timeline: --about-view;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent 0 180px,
+    var(--about-streak-4) 180px, var(--about-streak-5) 183px,
+    transparent 183px 350px
+  );
 }
 
 [data-theme="light"] .streak-about {
-  background:
-    repeating-linear-gradient(
-      -45deg,
-      transparent 0px, transparent 100px,
-      rgba(192, 132, 250, 0.08) 100px, rgba(196, 139, 253, 0.1) 104px,
-      rgba(199, 146, 255, 0.08) 108px, transparent 108px, transparent 250px
-    ),
-    repeating-linear-gradient(
-      -45deg,
-      transparent 0px, transparent 180px,
-      rgba(168, 85, 247, 0.06) 180px, rgba(168, 85, 247, 0.08) 183px,
-      transparent 183px, transparent 350px
-    ),
-    linear-gradient(
-      160deg,
-      #f5f3ff 0%, #ede9fe 35%,
-      #faf5ff 65%, #f3e5ff 100%
-    );
+  background: linear-gradient(
+    160deg,
+    #f5f3ff 0%, #ede9fe 35%,
+    #faf5ff 65%, #f3e5ff 100%
+  );
+}
+[data-theme="light"] .streak-about::before {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent 0 100px,
+    rgba(192, 132, 250, 0.08) 100px, rgba(196, 139, 253, 0.1) 104px,
+    rgba(199, 146, 255, 0.08) 108px, transparent 108px 250px
+  );
+}
+[data-theme="light"] .streak-about::after {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent 0 180px,
+    rgba(168, 85, 247, 0.06) 180px, rgba(168, 85, 247, 0.08) 183px,
+    transparent 183px 350px
+  );
 }
 
-/* Contact — 150deg streaks */
+/* ------- Contact — 150deg ------- */
 .streak-contact {
-  background:
-    repeating-linear-gradient(
-      150deg,
-      transparent 0px, transparent 90px,
-      var(--contact-streak-1) 90px, var(--contact-streak-2) 94px,
-      var(--contact-streak-3) 98px, transparent 98px, transparent 220px
-    ),
-    repeating-linear-gradient(
-      150deg,
-      transparent 0px, transparent 160px,
-      var(--contact-streak-4) 160px, var(--contact-streak-5) 163px,
-      transparent 163px, transparent 300px
-    ),
-    linear-gradient(
-      -30deg,
-      var(--contact-grad-1) 0%, var(--contact-grad-2) 40%,
-      var(--contact-grad-3) 70%, var(--contact-grad-4) 100%
-    );
+  view-timeline-name: --contact-view;
+  background: linear-gradient(
+    -30deg,
+    var(--contact-grad-1) 0%, var(--contact-grad-2) 40%,
+    var(--contact-grad-3) 70%, var(--contact-grad-4) 100%
+  );
+}
+.streak-contact::before {
+  animation-timeline: --contact-view;
+  background: repeating-linear-gradient(
+    150deg,
+    transparent 0 90px,
+    var(--contact-streak-1) 90px, var(--contact-streak-2) 94px,
+    var(--contact-streak-3) 98px, transparent 98px 220px
+  );
+}
+.streak-contact::after {
+  animation-timeline: --contact-view;
+  background: repeating-linear-gradient(
+    150deg,
+    transparent 0 160px,
+    var(--contact-streak-4) 160px, var(--contact-streak-5) 163px,
+    transparent 163px 300px
+  );
 }
 
 [data-theme="light"] .streak-contact {
-  background:
-    repeating-linear-gradient(
-      150deg,
-      transparent 0px, transparent 90px,
-      rgba(192, 132, 250, 0.08) 90px, rgba(196, 139, 253, 0.1) 94px,
-      rgba(199, 146, 255, 0.08) 98px, transparent 98px, transparent 220px
-    ),
-    repeating-linear-gradient(
-      150deg,
-      transparent 0px, transparent 160px,
-      rgba(168, 85, 247, 0.06) 160px, rgba(168, 85, 247, 0.08) 163px,
-      transparent 163px, transparent 300px
-    ),
-    linear-gradient(
-      -30deg,
-      #f3e5ff 0%, #ede9fe 40%,
-      #f5f3ff 70%, #faf5ff 100%
-    );
+  background: linear-gradient(
+    -30deg,
+    #f3e5ff 0%, #ede9fe 40%,
+    #f5f3ff 70%, #faf5ff 100%
+  );
+}
+[data-theme="light"] .streak-contact::before {
+  background: repeating-linear-gradient(
+    150deg,
+    transparent 0 90px,
+    rgba(192, 132, 250, 0.08) 90px, rgba(196, 139, 253, 0.1) 94px,
+    rgba(199, 146, 255, 0.08) 98px, transparent 98px 220px
+  );
+}
+[data-theme="light"] .streak-contact::after {
+  background: repeating-linear-gradient(
+    150deg,
+    transparent 0 160px,
+    rgba(168, 85, 247, 0.06) 160px, rgba(168, 85, 247, 0.08) 163px,
+    transparent 163px 300px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .streak-hero::before, .streak-hero::after,
+  .streak-services::before, .streak-services::after,
+  .streak-about::before, .streak-about::after,
+  .streak-contact::before, .streak-contact::after {
+    animation: none;
+  }
 }

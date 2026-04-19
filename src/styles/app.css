@@ -98,9 +98,9 @@
   --services-grad-2: #e9d5ff;
   --services-grad-3: #ddd6fe;
   --services-grad-4: #e9d5ff;
-  --services-streak-1: rgba(124, 58, 237, 0.35);
-  --services-streak-2: rgba(139, 92, 246, 0.4);
-  --services-streak-3: rgba(107, 70, 193, 0.35);
+  --services-streak-1: rgba(124, 58, 237, 0.2);
+  --services-streak-2: rgba(139, 92, 246, 0.22);
+  --services-streak-3: rgba(107, 70, 193, 0.2);
   --services-streak-4: rgba(147, 112, 219, 0.25);
   --services-streak-5: rgba(159, 122, 234, 0.3);
   --services-text-color: #2d2d2d;
@@ -203,9 +203,9 @@
   --services-grad-2: #251540;
   --services-grad-3: #2a1a45;
   --services-grad-4: #1a0f2e;
-  --services-streak-1: rgba(157, 111, 255, 0.3);
-  --services-streak-2: rgba(183, 148, 246, 0.35);
-  --services-streak-3: rgba(167, 139, 250, 0.3);
+  --services-streak-1: rgba(157, 111, 255, 0.18);
+  --services-streak-2: rgba(183, 148, 246, 0.2);
+  --services-streak-3: rgba(167, 139, 250, 0.18);
   --services-streak-4: rgba(195, 176, 255, 0.22);
   --services-streak-5: rgba(177, 156, 217, 0.25);
   --services-text-color: #e5e5e5;
