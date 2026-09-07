@@ -34,7 +34,7 @@ const features = computed(() => {
 
 <template>
   <section class="hero section-viewport streak-hero text-[var(--hero-text-color)] pt-28 px-8 pb-8 max-md:pt-20 max-md:px-6 max-sm:pt-[4.5rem] max-sm:px-4 max-sm:pb-8">
-    <div class="hero-content section-grid gap-12 mt-auto mb-auto max-lg:gap-8 max-md:grid-cols-1 max-md:gap-6 max-sm:grid-cols-1 max-sm:gap-4">
+    <div class="hero-content section-grid gap-12 mt-auto mb-auto max-lg:gap-8 max-md:gap-6 max-sm:gap-4">
       <div class="hero-text">
         <div class="hero-title-row flex items-start gap-4 max-md:mb-4 md:block">
           <div class="flex-1 min-w-0">
@@ -43,13 +43,6 @@ const features = computed(() => {
               <em>{{ t('hero.titleEm') }}</em>
             </h1>
           </div>
-          <img
-            src="/logo.svg"
-            alt="Purpeon Digital – IT-konsulentselskap i Førde, Norge"
-            fetchpriority="high"
-            class="hero-mobile-logo md:hidden shrink-0 cursor-pointer"
-            @click="handleFoxClick"
-          />
         </div>
         <p class="text-[clamp(1rem,2vw,1.2rem)] leading-relaxed mb-4 text-[var(--hero-text-color)]" :style="{ opacity: 'var(--hero-text-opacity)' }">{{ t('hero.subtitle') }}</p>
         <p class="hero-tagline text-[clamp(1.1rem,2vw,1.3rem)] mb-8 text-[var(--hero-text-color)]" :style="{ opacity: 'var(--hero-text-opacity)' }">{{ t('hero.tagline') }}</p>
@@ -62,7 +55,7 @@ const features = computed(() => {
           </SectionButton>
         </div>
       </div>
-      <div class="hero-image flex items-center max-md:hidden" style="max-height: min(600px, 50vh)">
+      <div class="hero-image flex items-center" style="max-height: min(600px, 50vh)">
         <div class="hero-mark cursor-pointer select-none" v-html="logoAnimated" @click="handleFoxClick"></div>
       </div>
     </div>
@@ -91,35 +84,42 @@ const features = computed(() => {
   mix-blend-mode: lighten;
 }
 
-/* Mobile logo next to heading */
-.hero-mobile-logo {
-  width: 100px;
-  height: auto;
-  filter: brightness(1) contrast(1.15);
-  mix-blend-mode: normal;
-  opacity: 0;
-  animation: mobileLogoReveal 0.8s ease-out 0.2s forwards;
-}
-
-@media (max-width: 480px) {
-  .hero-mobile-logo {
-    width: 72px;
+/* Below md the same mark moves above the heading and drops to about 60% of the
+   desktop 400px. It used to be a separate 72px <img> with a plain fade, which
+   is why the phone never showed the drawing sequence: the animation lives in
+   the inline SVG, and the inline SVG was the element being hidden.
+   `min()` rather than a flat 240px so the narrowest phones do not have the
+   mark eating the full width. */
+/* The mark keeps a column of its own well below the md breakpoint. The text
+   block does not need the full width there: at 700px it wraps at about half,
+   which is the empty space the old layout wasted while showing a 72px logo. */
+@media (max-width: 767px) {
+  /* Uneven columns here, not the even split `section-grid` gives. The ratio is
+     measured, not guessed: at 0.5 the mark only reached 187px and the CTA
+     buttons wrapped to a stack by 640px, and at 0.78 they wrapped again at
+     580px. 0.72 puts the mark at the full 240px on the widest phones in this
+     band while the buttons stay on one row all the way down to 560. */
+  .hero-content {
+    grid-template-columns: 1.28fr 0.72fr;
+  }
+  .hero-mark {
+    max-width: min(240px, 33vw);
   }
 }
 
-:global([data-theme="dark"] .hero-mobile-logo) {
-  filter: brightness(0.9) contrast(1.1);
-  mix-blend-mode: lighten;
-}
-
-@keyframes mobileLogoReveal {
-  from {
-    opacity: 0;
-    transform: translateX(10px) scale(0.94);
+/* Under 560px there genuinely is no room beside the text, so the mark moves
+   above the heading and takes about 60% of the desktop 400px. */
+@media (max-width: 560px) {
+  .hero-content {
+    grid-template-columns: 1fr;
   }
-  to {
-    opacity: 1;
-    transform: translateX(0) scale(1);
+  .hero-image {
+    order: -1;
+    justify-content: center;
+    max-height: none !important;
+  }
+  .hero-mark {
+    max-width: min(240px, 62vw);
   }
 }
 
