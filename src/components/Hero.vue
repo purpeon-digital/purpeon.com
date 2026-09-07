@@ -122,9 +122,9 @@ const features = computed(() => {
   }
 }
 
-/* Under 560px there genuinely is no room beside the text, so the mark moves
-   above the heading and takes about 60% of the desktop 400px. */
-@media (max-width: 560px) {
+/* Under 500px there is no longer room beside the text, so the mark moves above
+   the heading and takes about 60% of the desktop 400px. */
+@media (max-width: 500px) {
   .hero-content {
     grid-template-columns: 1fr;
   }
@@ -148,6 +148,21 @@ const features = computed(() => {
   .hero-buttons :deep(.btn) {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+  }
+}
+
+/* The narrow end of the two-column band: the text column is down to about
+   280px here, which is not enough for the two CTAs at the padding above. Trim
+   it further rather than let them stack, since stacking costs height in a hero
+   that already scrolls. */
+@media (max-width: 560px) and (min-width: 501px) {
+  .hero-buttons {
+    gap: 0.5rem;
+  }
+  .hero-buttons :deep(.btn) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 0.95rem;
   }
 }
 
