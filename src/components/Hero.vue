@@ -86,7 +86,7 @@ const features = computed(() => {
   height: auto;
   display: block;
 }
-:global([data-theme="dark"]) .hero-mark {
+:global([data-theme="dark"] .hero-mark) {
   filter: brightness(0.9) contrast(1.1);
   mix-blend-mode: lighten;
 }
