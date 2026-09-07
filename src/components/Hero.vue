@@ -112,6 +112,10 @@ const features = computed(() => {
        row, it is a grid item that `section-grid` centres with its own
        `align-items: center`. Setting alignment on its children moved nothing. */
     align-self: start;
+    /* Not quite flush with the cap height: level with the very top of the
+       heading the mark reads as sitting above the text rather than beside it.
+       Scaled rather than fixed so the nudge stays proportional across the band. */
+    margin-top: clamp(10px, 2.5vw, 20px);
   }
   .hero-mark {
     max-width: min(240px, 33vw);
