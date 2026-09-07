@@ -102,6 +102,17 @@ const features = computed(() => {
   .hero-content {
     grid-template-columns: 1.28fr 0.72fr;
   }
+  /* Top aligned, not centred. `items-center` on the column centres the mark
+     against the whole text block, heading plus paragraphs plus buttons, so at
+     these widths a 190 to 240px mark floats halfway down beside the body copy
+     instead of sitting next to the heading. On desktop the mark is 400px and
+     about as tall as the text, which is why it reads correctly there. */
+  .hero-image {
+    /* `align-self`, not `align-items`: this element is not stretched across the
+       row, it is a grid item that `section-grid` centres with its own
+       `align-items: center`. Setting alignment on its children moved nothing. */
+    align-self: start;
+  }
   .hero-mark {
     max-width: min(240px, 33vw);
   }
